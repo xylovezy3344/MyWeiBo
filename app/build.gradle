@@ -1,0 +1,61 @@
+apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "24.0.1"
+
+    defaultConfig {
+        applicationId "com.xiaoyu.myweibo"
+        minSdkVersion 21
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:24.2.0'
+    compile 'com.android.support:design:24.2.0'
+
+    compile project(':weiboSDK')
+
+    //Butterknife
+    apt 'com.jakewharton:butterknife-compiler:8.3.0'
+    compile 'com.jakewharton:butterknife:8.3.0'
+
+    //RxJava
+    //一个使用Observable序列实现包含异步和基于事件的编程方式框架。
+    //扩展自观察者模式，实现数据、事件序列，
+    //并提供了很多Operators可以随意转换Observable，而无需顾虑线程安全，并发同步等。
+    compile 'io.reactivex:rxjava:1.1.6'
+    compile 'io.reactivex:rxandroid:1.2.1'
+
+    //Gson
+    compile 'com.google.code.gson:gson:2.7'
+
+    //Retrofit
+    //一个类型安全(Type-Safety）的基于RESTful架构的Android（Java）客户端实现。
+    // 基于注解，动态代理等技术。
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+
+    //Glide
+    //本意是滑行，专注于快速Scroll中的图片加载问题，当然也完全可以作为Remote Image的加载库。
+    //Google在开发者论坛推荐的，并应用在Google的很多开源项目上。
+    //是一个快速且有效的开源媒体管理以及图片加载的Android 框架，包含媒体解码，内存、磁盘缓存以及资源池等。
+    //支持获取、解码、显示视频、图片、GIF动态图。
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+
+    //Log输出库
+    compile 'com.orhanobut:logger:1.15'
+}
