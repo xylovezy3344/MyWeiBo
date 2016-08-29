@@ -1,4 +1,4 @@
-package com.xiaoyu.myweibo;
+package com.xiaoyu.myweibo.utils;
 
 import android.app.Activity;
 

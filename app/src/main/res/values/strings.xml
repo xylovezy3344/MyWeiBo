@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">微博</string>
     <string name="title_activity_splash">SplashActivity</string>
+    <string name="weibosdk_demo_toast_auth_success">登陆成功</string>
+    <string name="weibosdk_demo_toast_auth_failed">登陆失败</string>
+    <string name="weibosdk_demo_toast_auth_canceled">取消登陆</string>
 </resources>

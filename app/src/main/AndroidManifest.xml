@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SplashActivity"
+            android:name=".appstart.SplashActivity"
             android:theme="@style/Theme.AppStartLoad">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -23,9 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".login.LoginActivity"/>
 
-        <!--微博-->
+        <!--微博授权页-->
         <activity
             android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
             android:configChanges="keyboardHidden|orientation"
@@ -33,10 +32,6 @@
             android:windowSoftInputMode="adjustResize">
         </activity>
 
-        <service
-            android:name="com.sina.weibo.sdk.net.DownloadService"
-            android:exported="false">
-        </service>
     </application>
 
 </manifest>

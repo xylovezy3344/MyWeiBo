@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.xiaoyu.myweibo.login;
+package com.xiaoyu.myweibo.appstart;
 
 /**
  * 该类定义了微博授权时所需要的参数。
