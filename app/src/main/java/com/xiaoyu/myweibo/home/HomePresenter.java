@@ -6,7 +6,6 @@ import com.xiaoyu.myweibo.bean.WeiBoDetailList;
 import java.util.ArrayList;
 import java.util.List;
 
-import rx.Observable;
 import rx.Observer;
 
 /**
@@ -43,50 +42,75 @@ public class HomePresenter implements HomeContract.Presenter {
             public void onNext(WeiBoDetailList weiBoDetailList) {
 
                 if (type == HomeActivity.FIRST_GET) {
-
                     mSinceId = weiBoDetailList.getSince_id();
                     mMaxId = weiBoDetailList.getMax_id();
                     mHomeView.showWeiBo(weiBoDetailList.getStatuses());
-
                 } else if (type == HomeActivity.DOWN_REFRESH) {
-
                     mSinceId = weiBoDetailList.getSince_id();
                     mHomeView.refreshWeiBo(weiBoDetailList.getStatuses());
-
                 } else if (type == HomeActivity.UP_REFRESH) {
-
                     mMaxId = weiBoDetailList.getMax_id();
                     mHomeView.showWeiBo(weiBoDetailList.getStatuses());
-
                 }
-
             }
         };
 
         if (type == HomeActivity.FIRST_GET) {
-
             GetWeiBoModel.getLatestWeiBo(observer);
-
         } else if (type == HomeActivity.DOWN_REFRESH) {
-
             GetWeiBoModel.getNewWeiBo(mSinceId, observer);
-
         } else if (type == HomeActivity.UP_REFRESH) {
-
             GetWeiBoModel.getOldWeiBo(mMaxId, observer);
-
         }
+
+        /**
+         * 假数据测试
+         */
+
+//        if (type == HomeActivity.FIRST_GET) {
+//            WeiBoDetailList weiBoDetailList = jiashuju();
+//            mHomeView.showWeiBo(weiBoDetailList.getStatuses());
+//        } else if (type == HomeActivity.DOWN_REFRESH) {
+//            WeiBoDetailList weiBoDetailList = jiashujunNew();
+//            mHomeView.refreshWeiBo(weiBoDetailList.getStatuses());
+//        } else if (type == HomeActivity.UP_REFRESH) {
+//            WeiBoDetailList weiBoDetailList = jiashujunNew();
+//            mHomeView.refreshWeiBo(weiBoDetailList.getStatuses());
+//        }
     }
 
-    //造假数据测试
-    private WeiBoDetailList jiashuju(String a) {
+    //造假数据测试1-10
+    private WeiBoDetailList jiashuju() {
+
         List<WeiBoDetailList.StatusesBean> StatusesBeans =
                 new ArrayList<WeiBoDetailList.StatusesBean>();
-        WeiBoDetailList.StatusesBean statusesBean1 = new WeiBoDetailList.StatusesBean();
-        WeiBoDetailList.StatusesBean.UserBean user1 = new WeiBoDetailList.StatusesBean.UserBean();
-        user1.setName(a);
-        statusesBean1.setUser(user1);
-        StatusesBeans.add(statusesBean1);
+
+        for (int i = 0; i < 10; i++) {
+            WeiBoDetailList.StatusesBean statusesBean1 = new WeiBoDetailList.StatusesBean();
+            WeiBoDetailList.StatusesBean.UserBean user1 = new WeiBoDetailList.StatusesBean.UserBean();
+            user1.setName(i + "");
+            statusesBean1.setUser(user1);
+            StatusesBeans.add(statusesBean1);
+        }
+        WeiBoDetailList list = new WeiBoDetailList();
+        list.setStatuses(StatusesBeans);
+
+        return list;
+    }
+
+    //造假数据测试1-3
+    private WeiBoDetailList jiashujunNew() {
+
+        List<WeiBoDetailList.StatusesBean> StatusesBeans =
+                new ArrayList<WeiBoDetailList.StatusesBean>();
+
+        for (int i = 0; i < 10; i++) {
+            WeiBoDetailList.StatusesBean statusesBean1 = new WeiBoDetailList.StatusesBean();
+            WeiBoDetailList.StatusesBean.UserBean user1 = new WeiBoDetailList.StatusesBean.UserBean();
+            user1.setName('a' + i + "");
+            statusesBean1.setUser(user1);
+            StatusesBeans.add(statusesBean1);
+        }
         WeiBoDetailList list = new WeiBoDetailList();
         list.setStatuses(StatusesBeans);
 

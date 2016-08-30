@@ -128,7 +128,7 @@ public class HomeActivity extends AppCompatActivity
 
         if (totalNum >= keepWeiBoNum) {
             for (int i = 0; i < totalNum - keepWeiBoNum; i++) {
-                mWeiBoDetailList.remove(mWeiBoDetailList.size() - 1 - i);
+                mWeiBoDetailList.remove(mWeiBoDetailList.size() - 1);
             }
         }
     }
@@ -157,6 +157,7 @@ public class HomeActivity extends AppCompatActivity
 
         if (id == R.id.action_refresh) {
             //点击刷新按钮，等同于下拉刷新
+            mRefreshLayout.setRefreshing(true);
             mHomePresenter.getWeiBo(DOWN_REFRESH);
             return true;
         }

@@ -1,5 +1,6 @@
 package com.xiaoyu.myweibo.home;
 
+import com.orhanobut.logger.Logger;
 import com.xiaoyu.myweibo.base.BaseApplication;
 import com.xiaoyu.myweibo.bean.WeiBoDetailList;
 
@@ -30,6 +31,8 @@ public class GetWeiBoModel {
                 .build();
 
         GetWeiBoService getWeiBoService = retrofit.create(GetWeiBoService.class);
+
+        Logger.d(BaseApplication.accessToken().getToken());
 
         getWeiBoService.getWeiBoDetail(GET_WEIBO_NUM, BaseApplication.accessToken().getToken(), sinceId, maxId)
                 .subscribeOn(Schedulers.io())
