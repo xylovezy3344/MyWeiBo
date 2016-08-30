@@ -6,6 +6,7 @@ import com.bumptech.glide.Glide;
 import com.xiaoyu.myweibo.base.BaseApplication;
 
 /**
+ * 图片加载工具
  * Created by xiaoyu on 16-8-27.
  */
 public class LoadImage {

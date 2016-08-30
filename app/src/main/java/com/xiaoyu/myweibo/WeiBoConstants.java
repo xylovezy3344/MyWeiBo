@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.xiaoyu.myweibo.appstart;
+package com.xiaoyu.myweibo;
 
 /**
  * 该类定义了微博授权时所需要的参数。
@@ -22,7 +22,7 @@ package com.xiaoyu.myweibo.appstart;
  * @author SINA
  * @since 2013-09-29
  */
-public interface WeiBoLoginConstants {
+public interface WeiBoConstants {
 
     /** 当前 DEMO 应用的 APP_KEY，第三方应用应该使用自己的 APP_KEY 替换该 APP_KEY */
     public static final String APP_KEY      = "475606322";

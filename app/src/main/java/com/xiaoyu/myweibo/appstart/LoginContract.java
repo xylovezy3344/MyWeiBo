@@ -3,14 +3,17 @@ package com.xiaoyu.myweibo.appstart;
 import android.content.Intent;
 
 /**
- * This specifies the contract between the view and the presenter.
+ * View和Presenter契约类
  */
 public interface LoginContract {
 
     interface View  {
+        void jumpToMain();
     }
 
     interface Presenter {
+
+        boolean isLogin();
 
         void loginWeiBo();
 
