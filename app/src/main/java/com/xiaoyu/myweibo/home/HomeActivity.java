@@ -6,26 +6,21 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 
 import com.xiaoyu.myweibo.R;
-import com.xiaoyu.myweibo.bean.WeiBoDetailList;
-
-import java.util.List;
+import com.xiaoyu.myweibo.home.weibo.WeiBoFragment;
+import com.xiaoyu.myweibo.utils.ActivityUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HomeActivity extends AppCompatActivity
-        implements HomeContract.View, NavigationView.OnNavigationItemSelectedListener {
+public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -35,21 +30,7 @@ public class HomeActivity extends AppCompatActivity
     NavigationView mNavView;
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
-    @BindView(R.id.rv_weibo_detail)
-    RecyclerView mRvWeiboDetail;
-    @BindView(R.id.refresh_layout)
-    SwipeRefreshLayout mRefreshLayout;
-
-    private WeiBoListAdapter mAdapter;
-    private HomePresenter mHomePresenter;
-    private List<WeiBoDetailList.StatusesBean> mWeiBoDetailList;
-
-    //表示首次请求数据
-    public static int FIRST_GET = 0;
-    //上拉加载更多
-    public static int UP_REFRESH = 1;
-    //下拉刷新
-    public static int DOWN_REFRESH = 2;
+    private WeiBoFragment mWeiBoFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +39,6 @@ public class HomeActivity extends AppCompatActivity
         ButterKnife.bind(this);
 
         initView();
-        initData();
     }
 
     private void initView() {
@@ -72,65 +52,10 @@ public class HomeActivity extends AppCompatActivity
         //ToolBar标题设置成登陆账号昵称
         mCollapsingToolbar.setTitle("朕的昵称什么鬼");
 
-        //设置布局管理器
-        mRvWeiboDetail.setLayoutManager(new LinearLayoutManager(this));
-        //设置Item增加、移除动画
-        mRvWeiboDetail.setItemAnimator(new DefaultItemAnimator());
-
-        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                //下拉刷新
-                mHomePresenter.getWeiBo(DOWN_REFRESH);
-            }
-        });
-    }
-
-    protected void initData() {
-        mHomePresenter = new HomePresenter(this);
-        //首次请求微博数据
-        mHomePresenter.getWeiBo(FIRST_GET);
-    }
-
-    @Override
-    public void showWeiBo(List<WeiBoDetailList.StatusesBean> list) {
-        mWeiBoDetailList = list;
-        //设置adapter
-        mAdapter = new WeiBoListAdapter(mWeiBoDetailList);
-        mRvWeiboDetail.setAdapter(mAdapter);
-    }
-
-    @Override
-    public void refreshWeiBo(List<WeiBoDetailList.StatusesBean> list) {
-        updateData(list);
-        mAdapter.notifyDataSetChanged();
-        mRefreshLayout.setRefreshing(false);
-    }
-
-    /**
-     * 更新微博列表数据
-     * 默认设置保留30条微博（keepWeiBoNum = 30）
-     *
-     * @param list 刷新获取的微博集合
-     */
-    private void updateData(List<WeiBoDetailList.StatusesBean> list) {
-
-        int keepWeiBoNum = 30;
-
-        //微博总数
-        int totalNum = mWeiBoDetailList.size() + list.size();
-
-        //如果小于30条，直接往原数据上叠加数据
-        //如果大于30条，叠加完数据后再从最后减去多于30的数据
-        for (int i = 0; i < list.size(); i++) {
-            mWeiBoDetailList.add(i, list.get(i));
-        }
-
-        if (totalNum >= keepWeiBoNum) {
-            for (int i = 0; i < totalNum - keepWeiBoNum; i++) {
-                mWeiBoDetailList.remove(mWeiBoDetailList.size() - 1);
-            }
-        }
+        //填充fragment
+        mWeiBoFragment = new WeiBoFragment();
+        ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
+                mWeiBoFragment, R.id.fl_weibo_list);
     }
 
     @Override
@@ -157,8 +82,7 @@ public class HomeActivity extends AppCompatActivity
 
         if (id == R.id.action_refresh) {
             //点击刷新按钮，等同于下拉刷新
-            mRefreshLayout.setRefreshing(true);
-            mHomePresenter.getWeiBo(DOWN_REFRESH);
+            mWeiBoFragment.refreshForActivity();
             return true;
         }
 

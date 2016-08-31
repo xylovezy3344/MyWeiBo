@@ -256,8 +256,22 @@ public class WeiBoDetailList {
         private List<Integer> biz_ids;
         private List<?> darwin_tags;
         private List<?> hot_weibo_tags;
-        private List<?> pic_urls;
+        private List<PicUrlsBean> pic_urls;
         private List<?> text_tag_tips;
+
+        public static class PicUrlsBean {
+            private String thumbnail_pic;
+
+            public String getThumbnail_pic() {
+                return thumbnail_pic;
+            }
+
+            public void setThumbnail_pic(String thumbnail_pic) {
+                this.thumbnail_pic = thumbnail_pic;
+            }
+        }
+
+
 
         public int getAttitudes_count() {
             return attitudes_count;
@@ -499,11 +513,11 @@ public class WeiBoDetailList {
             this.hot_weibo_tags = hot_weibo_tags;
         }
 
-        public List<?> getPic_urls() {
+        public List<PicUrlsBean> getPic_urls() {
             return pic_urls;
         }
 
-        public void setPic_urls(List<?> pic_urls) {
+        public void setPic_urls(List<PicUrlsBean> pic_urls) {
             this.pic_urls = pic_urls;
         }
 

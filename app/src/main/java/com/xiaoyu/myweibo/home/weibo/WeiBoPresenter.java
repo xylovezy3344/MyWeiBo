@@ -1,7 +1,8 @@
-package com.xiaoyu.myweibo.home;
+package com.xiaoyu.myweibo.home.weibo;
 
 import com.orhanobut.logger.Logger;
 import com.xiaoyu.myweibo.bean.WeiBoDetailList;
+import com.xiaoyu.myweibo.home.HomeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,15 +13,15 @@ import rx.Observer;
  * 主页面Presenter
  * Created by xiaoyu on 16-8-29.
  */
-public class HomePresenter implements HomeContract.Presenter {
+public class WeiBoPresenter implements WeiBoContract.Presenter {
 
-    private HomeContract.View mHomeView;
+    private WeiBoContract.View mHomeView;
 
     //微博Api参数
     private long mSinceId = 0;
     private long mMaxId = 0;
 
-    public HomePresenter(HomeContract.View homeView) {
+    public WeiBoPresenter(WeiBoContract.View homeView) {
         this.mHomeView = homeView;
     }
 
@@ -41,25 +42,25 @@ public class HomePresenter implements HomeContract.Presenter {
             @Override
             public void onNext(WeiBoDetailList weiBoDetailList) {
 
-                if (type == HomeActivity.FIRST_GET) {
+                if (type == WeiBoFragment.FIRST_GET) {
                     mSinceId = weiBoDetailList.getSince_id();
                     mMaxId = weiBoDetailList.getMax_id();
                     mHomeView.showWeiBo(weiBoDetailList.getStatuses());
-                } else if (type == HomeActivity.DOWN_REFRESH) {
+                } else if (type == WeiBoFragment.DOWN_REFRESH) {
                     mSinceId = weiBoDetailList.getSince_id();
                     mHomeView.refreshWeiBo(weiBoDetailList.getStatuses());
-                } else if (type == HomeActivity.UP_REFRESH) {
+                } else if (type == WeiBoFragment.UP_REFRESH) {
                     mMaxId = weiBoDetailList.getMax_id();
                     mHomeView.showWeiBo(weiBoDetailList.getStatuses());
                 }
             }
         };
 
-        if (type == HomeActivity.FIRST_GET) {
+        if (type == WeiBoFragment.FIRST_GET) {
             GetWeiBoModel.getLatestWeiBo(observer);
-        } else if (type == HomeActivity.DOWN_REFRESH) {
+        } else if (type == WeiBoFragment.DOWN_REFRESH) {
             GetWeiBoModel.getNewWeiBo(mSinceId, observer);
-        } else if (type == HomeActivity.UP_REFRESH) {
+        } else if (type == WeiBoFragment.UP_REFRESH) {
             GetWeiBoModel.getOldWeiBo(mMaxId, observer);
         }
 

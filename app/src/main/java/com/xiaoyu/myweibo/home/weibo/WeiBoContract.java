@@ -1,4 +1,4 @@
-package com.xiaoyu.myweibo.home;
+package com.xiaoyu.myweibo.home.weibo;
 
 import com.xiaoyu.myweibo.bean.WeiBoDetailList;
 
@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * View和Presenter契约类
  */
-public interface HomeContract {
+public interface WeiBoContract {
 
     interface View  {
 
