@@ -57,6 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:lineSpacingMultiplier="1.2"
             android:textColor="@android:color/black"/>
 
         <!--九宫格图片，只有一张图时显示ImageView大图，

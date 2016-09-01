@@ -1,8 +1,13 @@
 package com.xiaoyu.myweibo.home.weibo;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,7 +71,8 @@ public class WeiBoListAdapter extends RecyclerView.Adapter<WeiBoListAdapter.MyVi
         holder.tvCreatedAt.setText(FormatUtils.formatTime(mWeiBoDetailList.get(position)
                 .getCreated_at()));
         //微博文字内容
-        holder.tvFriendWeiBoText.setText(mWeiBoDetailList.get(position).getText());
+        String friendText = mWeiBoDetailList.get(position).getText();
+        holder.tvFriendWeiBoText.setText(changeTextColor(friendText));
         //微博图片内容
         List<WeiBoDetailList.StatusesBean.PicUrlsBean> PicUrlsBeansF = mWeiBoDetailList
                 .get(position).getPic_urls();
@@ -85,8 +91,9 @@ public class WeiBoListAdapter extends RecyclerView.Adapter<WeiBoListAdapter.MyVi
             holder.cvSourceWeiBo.setVisibility(View.VISIBLE);
             //微博文字内容
             String sourceText = "@" + mWeiBoDetailList.get(position).getRetweeted_status().getUser()
-                    .getName() + "：" + mWeiBoDetailList.get(position).getRetweeted_status().getText();
-            holder.tvSourceWeiBoText.setText(sourceText);
+                    .getName() + ":" + mWeiBoDetailList.get(position).getRetweeted_status().getText();
+
+            holder.tvSourceWeiBoText.setText(changeTextColor(sourceText));
             //微博图片内容
             List<WeiBoDetailList.StatusesBean.RetweetedStatusBean.PicUrlsBean> PicUrlsBeansS =
                     mWeiBoDetailList.get(position).getRetweeted_status().getPic_urls();
@@ -230,5 +237,33 @@ public class WeiBoListAdapter extends RecyclerView.Adapter<WeiBoListAdapter.MyVi
             gridView.setLayoutParams(params);
             gridView.setAdapter(new NinePicAdapter(picUrls, params.width));
         }
+    }
+
+    private SpannableStringBuilder changeTextColor(String text) {
+
+        SpannableStringBuilder spannable = new SpannableStringBuilder(text);
+
+        int startIndex = text.indexOf("@");
+        int endIndex;
+
+        while (startIndex != -1) {
+
+            int space = text.indexOf(" ", startIndex);
+            int colon = text.indexOf(":", startIndex);
+
+            if (space != -1 && colon != -1) {
+                endIndex = space < colon ? space : colon;
+            } else if (space == -1 && colon == -1) {
+                endIndex = text.length();
+            } else  {
+                endIndex = space != -1 ? space : colon;
+            }
+
+            spannable.setSpan(new ForegroundColorSpan(Color.BLUE), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            startIndex = text.indexOf("@", endIndex);
+        }
+
+        return spannable;
     }
 }
