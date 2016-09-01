@@ -53,9 +53,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         mCollapsingToolbar.setTitle("朕的昵称什么鬼");
 
         //填充fragment
-        mWeiBoFragment = new WeiBoFragment();
-        ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
-                mWeiBoFragment, R.id.fl_weibo_list);
+        mWeiBoFragment = (WeiBoFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.fl_weibo_list);
+        if (mWeiBoFragment == null) {
+            mWeiBoFragment = new WeiBoFragment();
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
+                    mWeiBoFragment, R.id.fl_weibo_list);
+        }
     }
 
     @Override

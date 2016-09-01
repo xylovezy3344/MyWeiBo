@@ -1,44 +1,39 @@
 package com.xiaoyu.myweibo.home.weibo;
 
-import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
-import android.widget.SimpleAdapter;
 
-import com.sina.weibo.sdk.api.share.Base;
-import com.xiaoyu.myweibo.R;
 import com.xiaoyu.myweibo.base.BaseApplication;
-import com.xiaoyu.myweibo.bean.WeiBoDetailList;
 import com.xiaoyu.myweibo.utils.DensityUtil;
 import com.xiaoyu.myweibo.utils.LoadImage;
 
 import java.util.List;
-import java.util.Map;
+
 
 /**
+ * 九宫格图片适配器
  * Created by xiaoyu on 16-8-31.
  */
 public class NinePicAdapter extends BaseAdapter {
 
-    private List<WeiBoDetailList.StatusesBean.PicUrlsBean> mPicList;
+    private List<String> mPicUrlList;
     private int mGridViewHeight;
 
-    public NinePicAdapter(List<WeiBoDetailList.StatusesBean.PicUrlsBean> mPicList, int mGridViewHeight) {
-        this.mPicList = mPicList;
+    public NinePicAdapter(List<String> mPicUrlList, int mGridViewHeight) {
+        this.mPicUrlList = mPicUrlList;
         this.mGridViewHeight = mGridViewHeight;
     }
 
     @Override
     public int getCount() {
-        return mPicList.size();
+        return mPicUrlList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mPicList.get(position);
+        return mPicUrlList.get(position);
     }
 
     @Override
@@ -55,7 +50,10 @@ public class NinePicAdapter extends BaseAdapter {
         imageView.setLayoutParams(new ViewGroup.LayoutParams(height, height));
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-        LoadImage.getInstance().loadImage(mPicList.get(position).getThumbnail_pic(), imageView);
+        //集合中拿到地址是小图（thumbnail），需要将地址中thumbnail替换成bmiddle变成中等大小，
+        //或者替换成large变成大图
+        String picUrl = mPicUrlList.get(position).replace("thumbnail", "bmiddle");
+        LoadImage.getInstance().loadImageAsBitmap(picUrl, imageView);
 
         return imageView;
     }

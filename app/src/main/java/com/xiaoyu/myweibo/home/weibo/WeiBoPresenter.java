@@ -2,7 +2,6 @@ package com.xiaoyu.myweibo.home.weibo;
 
 import com.orhanobut.logger.Logger;
 import com.xiaoyu.myweibo.bean.WeiBoDetailList;
-import com.xiaoyu.myweibo.home.HomeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
