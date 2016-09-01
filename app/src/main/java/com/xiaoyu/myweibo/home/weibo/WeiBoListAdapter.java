@@ -9,11 +9,8 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.DrawableTypeRequest;
-import com.bumptech.glide.Glide;
 import com.xiaoyu.myweibo.R;
 import com.xiaoyu.myweibo.base.BaseApplication;
 import com.xiaoyu.myweibo.bean.BitmapBean;
@@ -118,16 +115,16 @@ public class WeiBoListAdapter extends RecyclerView.Adapter<WeiBoListAdapter.MyVi
         //九宫格显示缩略图
         GridView gvFriendNinePic;
         FrameLayout flFriendOnePic;
-        ImageView ivFriendOnePic;
-        ImageView ivFriendGifTag;
+        //ImageView ivFriendOnePic;
+        //ImageView ivFriendGifTag;
 
         TextView tvSourceWeiBoText;
         CardView cvSourceWeiBo;
         //九宫格显示缩略图
         GridView gvSourceNinePic;
         FrameLayout flSourceOnePic;
-        ImageView ivSourceOnePic;
-        ImageView ivSourceGifTag;
+        //ImageView ivSourceOnePic;
+        //ImageView ivSourceGifTag;
 
 
         public MyViewHolder(View view) {
@@ -139,15 +136,15 @@ public class WeiBoListAdapter extends RecyclerView.Adapter<WeiBoListAdapter.MyVi
             tvFriendWeiBoText = (TextView) view.findViewById(R.id.tv_weibo_text_friend);
             gvFriendNinePic = (GridView) view.findViewById(R.id.gv_nine_pic_friend);
             flFriendOnePic = (FrameLayout) view.findViewById(R.id.fl_one_pic_friend);
-            ivFriendOnePic = (ImageView) view.findViewById(R.id.iv_one_pic_friend);
-            ivFriendGifTag = (ImageView) view.findViewById(R.id.iv_friend_gif_tag);
+            //ivFriendOnePic = (ImageView) view.findViewById(R.id.iv_one_pic_friend);
+            //ivFriendGifTag = (ImageView) view.findViewById(R.id.iv_friend_gif_tag);
 
             tvSourceWeiBoText = (TextView) view.findViewById(R.id.tv_weibo_text_source);
             gvSourceNinePic = (GridView) view.findViewById(R.id.gv_nine_pic_source);
             cvSourceWeiBo = (CardView) view.findViewById(R.id.cv_source_weibo);
             flSourceOnePic = (FrameLayout) view.findViewById(R.id.fl_one_pic_source);
-            ivSourceOnePic = (ImageView) view.findViewById(R.id.iv_one_pic_source);
-            ivSourceGifTag = (ImageView) view.findViewById(R.id.iv_source_gif_tag);
+            //ivSourceOnePic = (ImageView) view.findViewById(R.id.iv_one_pic_source);
+            //ivSourceGifTag = (ImageView) view.findViewById(R.id.iv_source_gif_tag);
         }
     }
 

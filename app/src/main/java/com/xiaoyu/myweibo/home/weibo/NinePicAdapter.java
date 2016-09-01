@@ -1,10 +1,13 @@
 package com.xiaoyu.myweibo.home.weibo;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.xiaoyu.myweibo.R;
 import com.xiaoyu.myweibo.base.BaseApplication;
 import com.xiaoyu.myweibo.utils.DensityUtil;
 import com.xiaoyu.myweibo.utils.LoadImage;
@@ -46,15 +49,29 @@ public class NinePicAdapter extends BaseAdapter {
 
         int height = (mGridViewHeight - 2 * DensityUtil.dip2px(8)) / 3;
 
-        ImageView imageView = new ImageView(BaseApplication.context());
-        imageView.setLayoutParams(new ViewGroup.LayoutParams(height, height));
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        View ninePicView = LayoutInflater.from(BaseApplication.context())
+                .inflate(R.layout.weibo_item_nine_pic, viewGroup, false);
+
+        ImageView ivNinePic = (ImageView) ninePicView.findViewById(R.id.iv_nine_pic);
+        ImageView ivGifTag = (ImageView) ninePicView.findViewById(R.id.iv_gif_tag);
+
+        ViewGroup.LayoutParams params = ivNinePic.getLayoutParams();
+        params.height = height;
+        params.width = height;
+        ivNinePic.setLayoutParams(params);
 
         //集合中拿到地址是小图（thumbnail），需要将地址中thumbnail替换成bmiddle变成中等大小，
         //或者替换成large变成大图
         String picUrl = mPicUrlList.get(position).replace("thumbnail", "bmiddle");
-        LoadImage.getInstance().loadImageAsBitmap(picUrl, imageView);
 
-        return imageView;
+        if (picUrl.endsWith("gif")) {
+            ivGifTag.setVisibility(View.VISIBLE);
+        } else {
+            ivGifTag.setVisibility(View.GONE);
+        }
+
+        LoadImage.getInstance().loadImageAsBitmap(picUrl, ivNinePic);
+
+        return ninePicView;
     }
 }
