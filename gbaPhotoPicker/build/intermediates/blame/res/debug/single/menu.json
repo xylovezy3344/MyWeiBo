@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "/home/xiaoyu/workspace/MyWeiBo/gbaPhotoPicker/build/intermediates/res/merged/debug/menu/bga_pp_menu_photo_picker_preview.xml",
+        "source": "/home/xiaoyu/workspace/MyWeiBo/gbaPhotoPicker/src/main/res/menu/bga_pp_menu_photo_picker_preview.xml"
+    },
+    {
+        "merged": "/home/xiaoyu/workspace/MyWeiBo/gbaPhotoPicker/build/intermediates/res/merged/debug/menu/bga_pp_menu_photo_preview.xml",
+        "source": "/home/xiaoyu/workspace/MyWeiBo/gbaPhotoPicker/src/main/res/menu/bga_pp_menu_photo_preview.xml"
+    },
+    {
+        "merged": "/home/xiaoyu/workspace/BGAPhotoPicker/library/build/intermediates/res/merged/debug/menu/bga_pp_menu_photo_preview.xml",
+        "source": "/home/xiaoyu/workspace/BGAPhotoPicker/library/src/main/res/menu/bga_pp_menu_photo_preview.xml"
+    },
+    {
+        "merged": "/home/xiaoyu/workspace/BGAPhotoPicker/library/build/intermediates/res/merged/debug/menu/bga_pp_menu_photo_picker.xml",
+        "source": "/home/xiaoyu/workspace/BGAPhotoPicker/library/src/main/res/menu/bga_pp_menu_photo_picker.xml"
+    },
+    {
+        "merged": "/home/xiaoyu/workspace/BGAPhotoPicker/library/build/intermediates/res/merged/debug/menu/bga_pp_menu_photo_picker_preview.xml",
+        "source": "/home/xiaoyu/workspace/BGAPhotoPicker/library/src/main/res/menu/bga_pp_menu_photo_picker_preview.xml"
+    },
+    {
+        "merged": "/home/xiaoyu/workspace/MyWeiBo/gbaPhotoPicker/build/intermediates/res/merged/debug/menu/bga_pp_menu_photo_picker.xml",
+        "source": "/home/xiaoyu/workspace/MyWeiBo/gbaPhotoPicker/src/main/res/menu/bga_pp_menu_photo_picker.xml"
+    }
+]

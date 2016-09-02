@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/home/xiaoyu/workspace/MyWeiBo/gbaPhotoPicker/build/intermediates/res/merged/androidTest/debug/drawable-v23/abc_control_background_material.xml",
+        "source": "/home/xiaoyu/workspace/MyWeiBo/gbaPhotoPicker/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.2.0/res/drawable-v23/abc_control_background_material.xml"
+    },
+    {
+        "merged": "/home/xiaoyu/workspace/BGAPhotoPicker/library/build/intermediates/res/merged/androidTest/debug/drawable-v23/abc_control_background_material.xml",
+        "source": "/home/xiaoyu/workspace/BGAPhotoPicker/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.2.0/res/drawable-v23/abc_control_background_material.xml"
+    }
+]
