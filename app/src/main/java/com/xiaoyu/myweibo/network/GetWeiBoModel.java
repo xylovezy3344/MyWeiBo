@@ -1,4 +1,4 @@
-package com.xiaoyu.myweibo.home.weibo;
+package com.xiaoyu.myweibo.network;
 
 import com.orhanobut.logger.Logger;
 import com.xiaoyu.myweibo.base.BaseApplication;

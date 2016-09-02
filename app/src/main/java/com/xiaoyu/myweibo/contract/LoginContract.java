@@ -1,4 +1,4 @@
-package com.xiaoyu.myweibo.appstart;
+package com.xiaoyu.myweibo.contract;
 
 import android.content.Intent;
 

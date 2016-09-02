@@ -60,40 +60,12 @@
             android:lineSpacingMultiplier="1.2"
             android:textColor="@android:color/black"/>
 
-        <!--九宫格图片，只有一张图时显示ImageView大图，
-            多图时用GridView显示多张缩略图-->
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
-
-            <GridView
-                android:id="@+id/gv_nine_pic_friend"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:horizontalSpacing="8dp"
-                android:numColumns="3"
-                android:verticalSpacing="8dp"/>
-
-            <FrameLayout
-                android:id="@+id/fl_one_pic_friend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/iv_one_pic_friend"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-                <ImageView
-                    android:id="@+id/iv_friend_gif_tag"
-                    android:layout_gravity="bottom|end"
-                    android:src="@drawable/gif_tag"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-            </FrameLayout>
-
-        </FrameLayout>
+        <!--九宫格图片-->
+        <cn.bingoogolapple.photopicker.widget.BGANinePhotoLayout
+            android:layout_gravity="center"
+            android:id="@+id/nine_pic_friend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 </android.support.v7.widget.CardView>

@@ -1,4 +1,4 @@
-package com.xiaoyu.myweibo.home.weibo;
+package com.xiaoyu.myweibo.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,7 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.xiaoyu.myweibo.R;
+import com.xiaoyu.myweibo.adapter.WeiBoListAdapter;
 import com.xiaoyu.myweibo.bean.WeiBoDetailList;
+import com.xiaoyu.myweibo.contract.WeiBoContract;
+import com.xiaoyu.myweibo.presenter.WeiBoPresenter;
 
 import java.util.List;
 
@@ -79,7 +82,7 @@ public class WeiBoFragment extends Fragment implements WeiBoContract.View {
     public void showWeiBo(List<WeiBoDetailList.StatusesBean> list) {
         mWeiBoDetailList = list;
         //设置adapter
-        mAdapter = new WeiBoListAdapter(mWeiBoDetailList, mScreenWidth);
+        mAdapter = new WeiBoListAdapter(getActivity(), mWeiBoDetailList);
         mRvWeiboDetail.setAdapter(mAdapter);
     }
 

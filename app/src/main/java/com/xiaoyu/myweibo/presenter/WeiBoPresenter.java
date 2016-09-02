@@ -1,7 +1,10 @@
-package com.xiaoyu.myweibo.home.weibo;
+package com.xiaoyu.myweibo.presenter;
 
 import com.orhanobut.logger.Logger;
 import com.xiaoyu.myweibo.bean.WeiBoDetailList;
+import com.xiaoyu.myweibo.contract.WeiBoContract;
+import com.xiaoyu.myweibo.network.GetWeiBoModel;
+import com.xiaoyu.myweibo.ui.WeiBoFragment;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.xiaoyu.myweibo.appstart;
+package com.xiaoyu.myweibo.presenter;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,8 +12,9 @@ import com.sina.weibo.sdk.auth.WeiboAuthListener;
 import com.sina.weibo.sdk.auth.sso.SsoHandler;
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.xiaoyu.myweibo.R;
-import com.xiaoyu.myweibo.WeiBoConstants;
+import com.xiaoyu.myweibo.contract.WeiBoConstants;
 import com.xiaoyu.myweibo.base.BaseApplication;
+import com.xiaoyu.myweibo.contract.LoginContract;
 import com.xiaoyu.myweibo.utils.AccessTokenKeeper;
 
 public class LoginPresenter implements LoginContract.Presenter {

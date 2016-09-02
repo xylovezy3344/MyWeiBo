@@ -1,4 +1,4 @@
-package com.xiaoyu.myweibo.appstart;
+package com.xiaoyu.myweibo.ui;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,7 +6,8 @@ import android.os.Bundle;
 import android.widget.FrameLayout;
 
 import com.xiaoyu.myweibo.R;
-import com.xiaoyu.myweibo.home.HomeActivity;
+import com.xiaoyu.myweibo.contract.LoginContract;
+import com.xiaoyu.myweibo.presenter.LoginPresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

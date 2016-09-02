@@ -1,4 +1,4 @@
-package com.xiaoyu.myweibo.home.weibo;
+package com.xiaoyu.myweibo.contract;
 
 import com.xiaoyu.myweibo.bean.WeiBoDetailList;
 

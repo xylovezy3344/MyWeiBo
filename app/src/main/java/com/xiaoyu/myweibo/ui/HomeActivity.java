@@ -1,4 +1,4 @@
-package com.xiaoyu.myweibo.home;
+package com.xiaoyu.myweibo.ui;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,10 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
 
 import com.xiaoyu.myweibo.R;
-import com.xiaoyu.myweibo.home.weibo.WeiBoFragment;
 import com.xiaoyu.myweibo.utils.ActivityUtils;
 
 import butterknife.BindView;
