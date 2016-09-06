@@ -14,7 +14,7 @@
         android:orientation="vertical"
         android:padding="8dp">
 
-        <TextView
+        <com.xiaoyu.myweibo.widget.WeiBoTextView
             android:id="@+id/tv_weibo_text_source"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

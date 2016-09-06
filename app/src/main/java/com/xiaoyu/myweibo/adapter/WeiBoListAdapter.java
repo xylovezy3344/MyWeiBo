@@ -8,12 +8,16 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.TextPaint;
+import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.BitmapRequestBuilder;
 import com.bumptech.glide.DrawableRequestBuilder;
@@ -23,6 +27,7 @@ import com.xiaoyu.myweibo.base.BaseApplication;
 import com.xiaoyu.myweibo.bean.WeiBoDetailList;
 import com.xiaoyu.myweibo.utils.FormatUtils;
 import com.xiaoyu.myweibo.utils.LoadImage;
+import com.xiaoyu.myweibo.widget.WeiBoTextView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -71,7 +76,7 @@ public class WeiBoListAdapter extends RecyclerView.Adapter<WeiBoListAdapter.MyVi
                 .getCreated_at()));
         //微博文字内容
         String friendText = mWeiBoDetailList.get(position).getText();
-        holder.tvFriendWeiBoText.setText(changeTextColor(friendText));
+        holder.tvFriendWeiBoText.setText(friendText);
         //微博图片内容
         List<WeiBoDetailList.StatusesBean.PicUrlsBean> PicUrlsBeansF = mWeiBoDetailList
                 .get(position).getPic_urls();
@@ -92,22 +97,30 @@ public class WeiBoListAdapter extends RecyclerView.Adapter<WeiBoListAdapter.MyVi
 
             holder.cvSourceWeiBo.setVisibility(View.VISIBLE);
             //微博文字内容
-            String sourceText = "@" + mWeiBoDetailList.get(position).getRetweeted_status().getUser()
-                    .getName() + ":" + mWeiBoDetailList.get(position).getRetweeted_status().getText();
+            String sourceText;
+            if (mWeiBoDetailList.get(position).getRetweeted_status().getUser() != null) {
+                sourceText = "@" + mWeiBoDetailList.get(position).getRetweeted_status().getUser()
+                        .getName() + ":" + mWeiBoDetailList.get(position).getRetweeted_status().getText();
+            } else {
+                sourceText = mWeiBoDetailList.get(position).getRetweeted_status().getText();
+            }
 
-            holder.tvSourceWeiBoText.setText(changeTextColor(sourceText));
+
+            holder.tvSourceWeiBoText.setText(sourceText);
             //微博图片内容
             List<WeiBoDetailList.StatusesBean.RetweetedStatusBean.PicUrlsBean> PicUrlsBeansS =
                     mWeiBoDetailList.get(position).getRetweeted_status().getPic_urls();
-            ArrayList<String> sourcePicUrls = new ArrayList<>();
-            for (WeiBoDetailList.StatusesBean.RetweetedStatusBean.PicUrlsBean bean : PicUrlsBeansS) {
-                String picUrl = bean.getThumbnail_pic().replace("thumbnail", "bmiddle");
-                sourcePicUrls.add(picUrl);
-            }
+            if (PicUrlsBeansS != null) {
+                ArrayList<String> sourcePicUrls = new ArrayList<>();
+                for (WeiBoDetailList.StatusesBean.RetweetedStatusBean.PicUrlsBean bean : PicUrlsBeansS) {
+                    String picUrl = bean.getThumbnail_pic().replace("thumbnail", "bmiddle");
+                    sourcePicUrls.add(picUrl);
+                }
 
-            holder.sourceNinePic.init(mActivity);
-            holder.sourceNinePic.setDelegate(this);
-            holder.sourceNinePic.setData(sourcePicUrls);
+                holder.sourceNinePic.init(mActivity);
+                holder.sourceNinePic.setDelegate(this);
+                holder.sourceNinePic.setData(sourcePicUrls);
+            }
 
         } else {
             holder.cvSourceWeiBo.setVisibility(View.GONE);
@@ -135,11 +148,11 @@ public class WeiBoListAdapter extends RecyclerView.Adapter<WeiBoListAdapter.MyVi
         ImageView ivUserIcon;
         TextView tvUserName;
         TextView tvCreatedAt;
-        TextView tvFriendWeiBoText;
+        WeiBoTextView tvFriendWeiBoText;
         //九宫格显示缩略图
         BGANinePhotoLayout friendNinePic;
 
-        TextView tvSourceWeiBoText;
+        WeiBoTextView tvSourceWeiBoText;
         CardView cvSourceWeiBo;
         //九宫格显示缩略图
         BGANinePhotoLayout sourceNinePic;
@@ -150,46 +163,13 @@ public class WeiBoListAdapter extends RecyclerView.Adapter<WeiBoListAdapter.MyVi
             ivUserIcon = (ImageView) view.findViewById(R.id.iv_user_icon);
             tvUserName = (TextView) view.findViewById(R.id.tv_user_name);
             tvCreatedAt = (TextView) view.findViewById(R.id.tv_created_at);
-            tvFriendWeiBoText = (TextView) view.findViewById(R.id.tv_weibo_text_friend);
+            tvFriendWeiBoText = (WeiBoTextView) view.findViewById(R.id.tv_weibo_text_friend);
             friendNinePic = (BGANinePhotoLayout) view.findViewById(R.id.nine_pic_friend);
 
-            tvSourceWeiBoText = (TextView) view.findViewById(R.id.tv_weibo_text_source);
+            tvSourceWeiBoText = (WeiBoTextView) view.findViewById(R.id.tv_weibo_text_source);
             cvSourceWeiBo = (CardView) view.findViewById(R.id.cv_source_weibo);
             sourceNinePic = (BGANinePhotoLayout) view.findViewById(R.id.nine_pic_source);
         }
-    }
-
-    /**
-     * 微博文字变颜色 @XX 变蓝色
-     * @param text
-     * @return
-     */
-    private SpannableStringBuilder changeTextColor(String text) {
-
-        SpannableStringBuilder spannable = new SpannableStringBuilder(text);
-
-        int startIndex = text.indexOf("@");
-        int endIndex;
-
-        while (startIndex != -1) {
-
-            int space = text.indexOf(" ", startIndex);
-            int colon = text.indexOf(":", startIndex);
-
-            if (space != -1 && colon != -1) {
-                endIndex = space < colon ? space : colon;
-            } else if (space == -1 && colon == -1) {
-                endIndex = text.length();
-            } else  {
-                endIndex = space != -1 ? space : colon;
-            }
-
-            spannable.setSpan(new ForegroundColorSpan(Color.BLUE), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-            startIndex = text.indexOf("@", endIndex);
-        }
-
-        return spannable;
     }
 
     private void photoPreviewWrapper() {

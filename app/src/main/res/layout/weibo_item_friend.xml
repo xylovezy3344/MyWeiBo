@@ -52,7 +52,7 @@
                 android:textSize="12sp"/>
         </RelativeLayout>
 
-        <TextView
+        <com.xiaoyu.myweibo.widget.WeiBoTextView
             android:id="@+id/tv_weibo_text_friend"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
