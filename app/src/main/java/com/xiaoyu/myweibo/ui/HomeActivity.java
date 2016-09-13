@@ -13,12 +13,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.xiaoyu.myweibo.R;
+import com.xiaoyu.myweibo.base.BaseActivity;
+import com.xiaoyu.myweibo.base.BaseApplication;
 import com.xiaoyu.myweibo.utils.ActivityUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class HomeActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -48,7 +50,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         mNavView.setNavigationItemSelectedListener(this);
 
         //ToolBar标题设置成登陆账号昵称
-        mCollapsingToolbar.setTitle("朕的昵称什么鬼");
+        mCollapsingToolbar.setTitle("XXXXXX");
 
         //填充fragment
         mWeiBoFragment = (WeiBoFragment) getSupportFragmentManager()
@@ -96,18 +98,27 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_home) {
+            //填充微博页面
+            ActivityUtils.replaceFragment(getSupportFragmentManager(),
+                    mWeiBoFragment, R.id.fl_weibo_list);
+        } else if (id == R.id.nav_message) {
+            //填充消息页面
+            MessageFragment messageFragment = MessageFragment.getInstance();
+            ActivityUtils.replaceFragment(getSupportFragmentManager(),
+                    messageFragment, R.id.fl_weibo_list);
 
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_discover) {
+            //填充发现页面
+            DiscoveryFragment discoveryFragment = DiscoveryFragment.getInstance();
+            ActivityUtils.replaceFragment(getSupportFragmentManager(),
+                    discoveryFragment, R.id.fl_weibo_list);
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_myself) {
+            //填充我的页面
+            MyselfFragment myselfFragment = MyselfFragment.getInstance();
+            ActivityUtils.replaceFragment(getSupportFragmentManager(),
+                    myselfFragment, R.id.fl_weibo_list);
         }
 
         mDrawerLayout.closeDrawer(GravityCompat.START);

@@ -5,10 +5,8 @@ import android.app.Activity;
 import java.util.Stack;
 
 /**
- * activity堆栈式管理
- *
- * @author FireAnt（http://my.oschina.net/LittleDY）
- * @created 2014年10月30日 下午6:22:05
+ * Activity堆栈式管理
+ * Created by xiaoyu on 16-8-31.
  */
 public class AppManager {
 
@@ -59,8 +57,7 @@ public class AppManager {
      * 获取当前Activity（堆栈中最后一个压入的）
      */
     public Activity currentActivity() {
-        Activity activity = activityStack.lastElement();
-        return activity;
+        return activityStack.lastElement();
     }
 
     /**

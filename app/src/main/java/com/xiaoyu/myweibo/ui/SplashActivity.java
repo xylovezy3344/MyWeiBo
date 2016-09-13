@@ -6,18 +6,18 @@ import android.os.Bundle;
 import android.widget.FrameLayout;
 
 import com.xiaoyu.myweibo.R;
-import com.xiaoyu.myweibo.contract.LoginContract;
-import com.xiaoyu.myweibo.presenter.LoginPresenter;
+import com.xiaoyu.myweibo.contract.SplashContract;
+import com.xiaoyu.myweibo.presenter.SplashPresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SplashActivity extends Activity implements LoginContract.View {
+public class SplashActivity extends Activity implements SplashContract.View {
 
     @BindView(R.id.fl_splash)
     FrameLayout mFlSplash;
 
-    private LoginPresenter mLoginPresenter;
+    private SplashPresenter mSplashPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,18 +25,18 @@ public class SplashActivity extends Activity implements LoginContract.View {
         setContentView(R.layout.splash_act);
         ButterKnife.bind(this);
 
-        mLoginPresenter = new LoginPresenter(this);
+        mSplashPresenter = new SplashPresenter(this);
 
         mFlSplash.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (mLoginPresenter.isLogin()) {
+                if (mSplashPresenter.isLogin()) {
                     jumpToMain();
                 } else {
-                    mLoginPresenter.loginWeiBo();
+                    mSplashPresenter.loginWeiBo();
                 }
             }
-        }, 1000);
+        }, 500);
 
     }
 
@@ -51,7 +51,7 @@ public class SplashActivity extends Activity implements LoginContract.View {
 
         // SSO 授权回调
         // 重要：发起 SSO 登陆的 Activity 必须重写 onActivityResults
-        mLoginPresenter.authorizeCallBack(requestCode, resultCode, data);
+        mSplashPresenter.authorizeCallBack(requestCode, resultCode, data);
     }
 
     /**

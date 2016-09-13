@@ -33,12 +33,15 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize">
         </activity>
-
         <activity
             android:name=".ui.HomeActivity"
-            android:launchMode="singleTask"
             android:label="@string/title_activity_home"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".ui.UserHomeActivity">
+        </activity>
+        <activity android:name=".ui.TopicActivity">
         </activity>
     </application>
 

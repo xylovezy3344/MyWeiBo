@@ -17,6 +17,6 @@ public interface WeiBoContract {
 
     interface Presenter {
 
-        void getWeiBo(int type);
+        void getWeiBo(int type, List<WeiBoDetailList.StatusesBean> oldWeiboList);
     }
 }

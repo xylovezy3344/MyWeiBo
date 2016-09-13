@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:id="@+id/ll_reposts"
+        android:padding="8dp"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_reposts"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/retweet"/>
+
+        <TextView
+            android:textSize="12sp"
+            android:id="@+id/tv_reposts"
+            android:textColor="@color/primary_text"
+            android:layout_marginStart="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="122"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_comments"
+        android:padding="8dp"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_comments"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/comment"/>
+
+        <TextView
+            android:textSize="12sp"
+            android:id="@+id/tv_comments"
+            android:textColor="@color/primary_text"
+            android:layout_marginStart="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="213"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_attitudes"
+        android:padding="8dp"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_attitudes"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/unlike"/>
+
+        <TextView
+            android:textSize="12sp"
+            android:id="@+id/tv_attitudes"
+            android:textColor="@color/primary_text"
+            android:layout_marginStart="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="625"/>
+
+    </LinearLayout>
+
+</LinearLayout>

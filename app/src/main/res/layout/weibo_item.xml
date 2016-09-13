@@ -12,5 +12,8 @@
     <!--原微博-->
     <include layout="@layout/weibo_item_source"/>
 
+    <!--转发 评论 点赞-->
+    <include layout="@layout/weibo_item_comment"/>
+
 </LinearLayout>
 

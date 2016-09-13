@@ -1,39 +1,25 @@
 package com.xiaoyu.myweibo.adapter;
 
-import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.os.Environment;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.TextPaint;
-import android.text.style.ClickableSpan;
-import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.BitmapRequestBuilder;
-import com.bumptech.glide.DrawableRequestBuilder;
-import com.bumptech.glide.Glide;
 import com.xiaoyu.myweibo.R;
 import com.xiaoyu.myweibo.base.BaseApplication;
 import com.xiaoyu.myweibo.bean.WeiBoDetailList;
+import com.xiaoyu.myweibo.utils.AppManager;
 import com.xiaoyu.myweibo.utils.FormatUtils;
 import com.xiaoyu.myweibo.utils.LoadImage;
+import com.xiaoyu.myweibo.utils.PreviewPhoto;
 import com.xiaoyu.myweibo.widget.WeiBoTextView;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.bingoogolapple.photopicker.activity.BGAPhotoPreviewActivity;
 import cn.bingoogolapple.photopicker.widget.BGANinePhotoLayout;
 
 /**
@@ -44,12 +30,9 @@ public class WeiBoListAdapter extends RecyclerView.Adapter<WeiBoListAdapter.MyVi
 
     private static final String TAG = "WeiBoListAdapter：";
 
-    private Activity mActivity;
     private List<WeiBoDetailList.StatusesBean> mWeiBoDetailList;
-    private BGANinePhotoLayout mCurrentClickNpl;
 
-    public WeiBoListAdapter(Activity activity, List<WeiBoDetailList.StatusesBean> mWeiBoDetailList) {
-        this.mActivity = activity;
+    public WeiBoListAdapter(List<WeiBoDetailList.StatusesBean> mWeiBoDetailList) {
         this.mWeiBoDetailList = mWeiBoDetailList;
     }
 
@@ -86,7 +69,7 @@ public class WeiBoListAdapter extends RecyclerView.Adapter<WeiBoListAdapter.MyVi
             friendPicUrls.add(picUrl);
         }
 
-        holder.friendNinePic.init(mActivity);
+        holder.friendNinePic.init(AppManager.getAppManager().currentActivity());
         holder.friendNinePic.setDelegate(this);
         holder.friendNinePic.setData(friendPicUrls);
 
@@ -95,7 +78,7 @@ public class WeiBoListAdapter extends RecyclerView.Adapter<WeiBoListAdapter.MyVi
          */
         if (mWeiBoDetailList.get(position).getRetweeted_status() != null) {
 
-            holder.cvSourceWeiBo.setVisibility(View.VISIBLE);
+            holder.llSourceWeiBo.setVisibility(View.VISIBLE);
             //微博文字内容
             String sourceText;
             if (mWeiBoDetailList.get(position).getRetweeted_status().getUser() != null) {
@@ -117,14 +100,37 @@ public class WeiBoListAdapter extends RecyclerView.Adapter<WeiBoListAdapter.MyVi
                     sourcePicUrls.add(picUrl);
                 }
 
-                holder.sourceNinePic.init(mActivity);
+                holder.sourceNinePic.init(AppManager.getAppManager().currentActivity());
                 holder.sourceNinePic.setDelegate(this);
                 holder.sourceNinePic.setData(sourcePicUrls);
             }
 
         } else {
-            holder.cvSourceWeiBo.setVisibility(View.GONE);
+            holder.llSourceWeiBo.setVisibility(View.GONE);
         }
+
+        /**
+         * 转发 评论 赞
+         */
+        int repostsCount = mWeiBoDetailList.get(position).getReposts_count();
+        int commentsCount = mWeiBoDetailList.get(position).getComments_count();
+        int attitudesCount = mWeiBoDetailList.get(position).getAttitudes_count();
+        if (repostsCount == 0) {
+            holder.tvReposts.setText("转发");
+        } else {
+            holder.tvReposts.setText(repostsCount + "");
+        }
+        if (commentsCount == 0) {
+            holder.tvComment.setText("评论");
+        } else {
+            holder.tvComment.setText(commentsCount + "");
+        }
+        if (attitudesCount == 0) {
+            holder.tvAttitudes.setText("赞");
+        } else {
+            holder.tvAttitudes.setText(attitudesCount + "");
+        }
+
     }
 
     @Override
@@ -134,8 +140,17 @@ public class WeiBoListAdapter extends RecyclerView.Adapter<WeiBoListAdapter.MyVi
 
     @Override
     public void onClickNinePhotoItem(BGANinePhotoLayout ninePhotoLayout, View view, int position, String model, List<String> models) {
-        mCurrentClickNpl = ninePhotoLayout;
-        photoPreviewWrapper();
+
+        if (ninePhotoLayout != null) {
+
+            if (ninePhotoLayout.getItemCount() == 1) {
+                // 预览单张图片
+                PreviewPhoto.previewPhoto(ninePhotoLayout.getCurrentClickItem());
+            } else if (ninePhotoLayout.getItemCount() > 1) {
+                // 预览多张图片
+                PreviewPhoto.previewPhotos(ninePhotoLayout.getData(), ninePhotoLayout.getCurrentClickItemPosition());
+            }
+        }
     }
 
     @Override
@@ -153,9 +168,18 @@ public class WeiBoListAdapter extends RecyclerView.Adapter<WeiBoListAdapter.MyVi
         BGANinePhotoLayout friendNinePic;
 
         WeiBoTextView tvSourceWeiBoText;
-        CardView cvSourceWeiBo;
+        LinearLayout llSourceWeiBo;
         //九宫格显示缩略图
         BGANinePhotoLayout sourceNinePic;
+
+        //转发 评论 赞
+        LinearLayout llReposts;
+        TextView tvReposts;
+        LinearLayout llComments;
+        TextView tvComment;
+        LinearLayout llAttitudes;
+        ImageView ivAttitudes;
+        TextView tvAttitudes;
 
         public MyViewHolder(View view) {
             super(view);
@@ -167,27 +191,18 @@ public class WeiBoListAdapter extends RecyclerView.Adapter<WeiBoListAdapter.MyVi
             friendNinePic = (BGANinePhotoLayout) view.findViewById(R.id.nine_pic_friend);
 
             tvSourceWeiBoText = (WeiBoTextView) view.findViewById(R.id.tv_weibo_text_source);
-            cvSourceWeiBo = (CardView) view.findViewById(R.id.cv_source_weibo);
+            llSourceWeiBo = (LinearLayout) view.findViewById(R.id.ll_source_weibo);
             sourceNinePic = (BGANinePhotoLayout) view.findViewById(R.id.nine_pic_source);
+
+            llReposts = (LinearLayout) view.findViewById(R.id.ll_reposts);
+            tvReposts = (TextView) view.findViewById(R.id.tv_reposts);
+
+            llComments = (LinearLayout)view.findViewById(R.id.ll_comments);
+            tvComment = (TextView) view.findViewById(R.id.tv_comments);
+
+            llAttitudes = (LinearLayout)view.findViewById(R.id.ll_attitudes);
+            ivAttitudes = (ImageView) view.findViewById(R.id.iv_attitudes);
+            tvAttitudes = (TextView) view.findViewById(R.id.tv_attitudes);
         }
-    }
-
-    private void photoPreviewWrapper() {
-
-        if (mCurrentClickNpl == null) {
-            return;
-        }
-
-        // 保存图片的目录，改成你自己要保存图片的目录。如果不传递该参数的话就不会显示右上角的保存按钮
-        File downloadDir = new File(Environment.getExternalStorageDirectory(), "MyWeiBoDownload");
-
-        if (mCurrentClickNpl.getItemCount() == 1) {
-            // 预览单张图片
-            mActivity.startActivity(BGAPhotoPreviewActivity.newIntent(mActivity, downloadDir, mCurrentClickNpl.getCurrentClickItem()));
-        } else if (mCurrentClickNpl.getItemCount() > 1) {
-            // 预览多张图片
-            mActivity.startActivity(BGAPhotoPreviewActivity.newIntent(mActivity, downloadDir, mCurrentClickNpl.getData(), mCurrentClickNpl.getCurrentClickItemPosition()));
-        }
-
     }
 }

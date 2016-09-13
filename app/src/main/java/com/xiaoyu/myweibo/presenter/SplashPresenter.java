@@ -14,17 +14,17 @@ import com.sina.weibo.sdk.exception.WeiboException;
 import com.xiaoyu.myweibo.R;
 import com.xiaoyu.myweibo.contract.WeiBoConstants;
 import com.xiaoyu.myweibo.base.BaseApplication;
-import com.xiaoyu.myweibo.contract.LoginContract;
+import com.xiaoyu.myweibo.contract.SplashContract;
 import com.xiaoyu.myweibo.utils.AccessTokenKeeper;
 
-public class LoginPresenter implements LoginContract.Presenter {
+public class SplashPresenter implements SplashContract.Presenter {
 
-    private LoginContract.View mLoginView;
+    private SplashContract.View mLoginView;
 
     /** 注意：SsoHandler 仅当 SDK 支持 SSO 时有效 */
     private SsoHandler mSsoHandler;
 
-    public LoginPresenter(LoginContract.View loginView) {
+    public SplashPresenter(SplashContract.View loginView) {
         this.mLoginView = loginView;
     }
 

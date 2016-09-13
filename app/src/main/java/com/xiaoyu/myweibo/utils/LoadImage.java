@@ -1,7 +1,5 @@
 package com.xiaoyu.myweibo.utils;
 
-import android.app.Activity;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.widget.ImageView;
 
@@ -9,8 +7,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.Target;
 import com.xiaoyu.myweibo.base.BaseApplication;
-
-import java.util.Stack;
 
 /**
  * 图片加载工具

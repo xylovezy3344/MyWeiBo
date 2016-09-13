@@ -5,7 +5,7 @@ import android.content.Intent;
 /**
  * View和Presenter契约类
  */
-public interface LoginContract {
+public interface SplashContract {
 
     interface View  {
         void jumpToMain();
@@ -18,5 +18,6 @@ public interface LoginContract {
         void loginWeiBo();
 
         void authorizeCallBack(int requestCode, int resultCode, Intent data);
+
     }
 }

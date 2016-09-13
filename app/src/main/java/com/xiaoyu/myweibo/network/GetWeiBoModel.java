@@ -18,7 +18,7 @@ import rx.schedulers.Schedulers;
 public class GetWeiBoModel {
 
     //每次获取微博数量
-    private static final int GET_WEIBO_NUM = 30;
+    private static final int GET_WEIBO_NUM = 20;
 
     private static void getWeiBo(long sinceId, long maxId, Observer<WeiBoDetailList> observer) {
 

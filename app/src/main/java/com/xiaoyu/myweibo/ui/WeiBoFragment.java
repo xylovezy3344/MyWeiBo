@@ -8,10 +8,12 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.orhanobut.logger.Logger;
 import com.xiaoyu.myweibo.R;
 import com.xiaoyu.myweibo.adapter.WeiBoListAdapter;
 import com.xiaoyu.myweibo.bean.WeiBoDetailList;
@@ -42,6 +44,7 @@ public class WeiBoFragment extends Fragment implements WeiBoContract.View {
     public static int DOWN_REFRESH = 2;
 
     private int mScreenWidth;
+    private LinearLayoutManager mLayoutManager;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,21 +62,41 @@ public class WeiBoFragment extends Fragment implements WeiBoContract.View {
         ButterKnife.bind(this, view);
 
         //设置布局管理器
-        mRvWeiboDetail.setLayoutManager(new LinearLayoutManager(getContext()));
+        mLayoutManager = new LinearLayoutManager(getContext());
+        mRvWeiboDetail.setLayoutManager(mLayoutManager);
         //设置Item增加、移除动画
         mRvWeiboDetail.setItemAnimator(new DefaultItemAnimator());
+
+        mWeiBoPresenter = new WeiBoPresenter(this);
 
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 //下拉刷新
-                mWeiBoPresenter.getWeiBo(DOWN_REFRESH);
+                mWeiBoPresenter.getWeiBo(DOWN_REFRESH, mWeiBoDetailList);
             }
         });
 
-        mWeiBoPresenter = new WeiBoPresenter(this);
+        //上拉加载更多
+        mRvWeiboDetail.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
+                int totalItemCount = mLayoutManager.getItemCount();
+                //lastVisibleItem >= totalItemCount - 2 表示剩下2个item自动加载
+                // dy>0 表示向下滑动
+                if (lastVisibleItem == totalItemCount - 1 && dy > 0) {
+                    if (!mRefreshLayout.isRefreshing()) {
+                        mWeiBoPresenter.getWeiBo(UP_REFRESH, mWeiBoDetailList);
+                        mRefreshLayout.setRefreshing(true);
+                    }
+                }
+            }
+        });
+
         //首次请求微博数据
-        mWeiBoPresenter.getWeiBo(FIRST_GET);
+        mWeiBoPresenter.getWeiBo(FIRST_GET, null);
 
         return view;
     }
@@ -82,15 +105,17 @@ public class WeiBoFragment extends Fragment implements WeiBoContract.View {
     public void showWeiBo(List<WeiBoDetailList.StatusesBean> list) {
         mWeiBoDetailList = list;
         //设置adapter
-        mAdapter = new WeiBoListAdapter(getActivity(), mWeiBoDetailList);
+        mAdapter = new WeiBoListAdapter(mWeiBoDetailList);
         mRvWeiboDetail.setAdapter(mAdapter);
+        Logger.e(mWeiBoDetailList.size() + "");
     }
 
     @Override
     public void refreshWeiBo(List<WeiBoDetailList.StatusesBean> list) {
-        updateData(list);
+        mWeiBoDetailList = list;
         mAdapter.notifyDataSetChanged();
         mRefreshLayout.setRefreshing(false);
+        Logger.e(mWeiBoDetailList.size() + "");
     }
 
     /**
@@ -98,33 +123,6 @@ public class WeiBoFragment extends Fragment implements WeiBoContract.View {
      */
     public void refreshForActivity() {
         mRefreshLayout.setRefreshing(true);
-        mWeiBoPresenter.getWeiBo(DOWN_REFRESH);
+        mWeiBoPresenter.getWeiBo(DOWN_REFRESH, mWeiBoDetailList);
     }
-
-    /**
-     * 更新微博列表数据
-     * 默认设置保留30条微博（keepWeiBoNum = 30）
-     *
-     * @param list 刷新获取的微博集合
-     */
-    private void updateData(List<WeiBoDetailList.StatusesBean> list) {
-
-        int keepWeiBoNum = 30;
-
-        //微博总数
-        int totalNum = mWeiBoDetailList.size() + list.size();
-
-        //如果小于30条，直接往原数据上叠加数据
-        //如果大于30条，叠加完数据后再从最后减去多于30的数据
-        for (int i = 0; i < list.size(); i++) {
-            mWeiBoDetailList.add(i, list.get(i));
-        }
-
-        if (totalNum >= keepWeiBoNum) {
-            for (int i = 0; i < totalNum - keepWeiBoNum; i++) {
-                mWeiBoDetailList.remove(mWeiBoDetailList.size() - 1);
-            }
-        }
-    }
-
 }
