@@ -4,9 +4,8 @@ import com.orhanobut.logger.Logger;
 import com.xiaoyu.myweibo.bean.WeiBoDetailList;
 import com.xiaoyu.myweibo.contract.WeiBoContract;
 import com.xiaoyu.myweibo.network.GetWeiBoModel;
-import com.xiaoyu.myweibo.ui.WeiBoFragment;
+import com.xiaoyu.myweibo.fragment.WeiBoFragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import rx.Observer;

@@ -1,4 +1,4 @@
-package com.xiaoyu.myweibo.ui;
+package com.xiaoyu.myweibo.activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,14 +7,16 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.xiaoyu.myweibo.R;
 import com.xiaoyu.myweibo.base.BaseActivity;
-import com.xiaoyu.myweibo.base.BaseApplication;
+import com.xiaoyu.myweibo.fragment.DiscoveryFragment;
+import com.xiaoyu.myweibo.fragment.MessageFragment;
+import com.xiaoyu.myweibo.fragment.MyselfFragment;
+import com.xiaoyu.myweibo.fragment.WeiBoFragment;
 import com.xiaoyu.myweibo.utils.ActivityUtils;
 
 import butterknife.BindView;

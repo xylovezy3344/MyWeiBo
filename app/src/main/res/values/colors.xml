@@ -9,4 +9,5 @@
     <color name="bg_white">#FFFFFF</color>
     <color name="divider">#BDBDBD</color>
     <color name="bg_gray">#F7F7F7</color>
+    <color name="click">#dfdcdc</color>
 </resources>

@@ -8,6 +8,12 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".activity.UserHomeActivity">
+    tools:context="com.xiaoyu.myweibo.activity.MyWeiboActivity">
 
+    <TextView
+        android:id="@+id/tvttt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MyWeiboActivity"
+        android:textSize="20sp"/>
 </RelativeLayout>

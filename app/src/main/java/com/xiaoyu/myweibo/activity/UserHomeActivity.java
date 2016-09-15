@@ -1,4 +1,4 @@
-package com.xiaoyu.myweibo.ui;
+package com.xiaoyu.myweibo.activity;
 
 import android.os.Bundle;
 import android.widget.Toast;

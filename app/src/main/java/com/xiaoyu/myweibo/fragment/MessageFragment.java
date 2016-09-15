@@ -1,4 +1,4 @@
-package com.xiaoyu.myweibo.ui;
+package com.xiaoyu.myweibo.fragment;
 
 
 import android.os.Bundle;
@@ -12,18 +12,18 @@ import com.xiaoyu.myweibo.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MyselfFragment extends Fragment {
+public class MessageFragment extends Fragment {
 
-    private static MyselfFragment mFragment;
+    private static MessageFragment mFragment;
 
-    private MyselfFragment() {
+    private MessageFragment() {
         super();
     }
 
-    public static MyselfFragment getInstance() {
+    public static MessageFragment getInstance() {
 
         if (mFragment == null) {
-            mFragment = new MyselfFragment();
+            mFragment = new MessageFragment();
         }
         return mFragment;
     }
@@ -32,7 +32,7 @@ public class MyselfFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.myself_frag, container, false);
+        return inflater.inflate(R.layout.message_frag, container, false);
     }
 
 }

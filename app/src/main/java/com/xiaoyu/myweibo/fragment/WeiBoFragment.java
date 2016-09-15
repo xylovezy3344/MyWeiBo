@@ -1,4 +1,4 @@
-package com.xiaoyu.myweibo.ui;
+package com.xiaoyu.myweibo.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

@@ -13,8 +13,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.xiaoyu.myweibo.base.BaseApplication;
-import com.xiaoyu.myweibo.ui.TopicActivity;
-import com.xiaoyu.myweibo.ui.UserHomeActivity;
+import com.xiaoyu.myweibo.activity.TopicActivity;
+import com.xiaoyu.myweibo.activity.UserHomeActivity;
 import com.xiaoyu.myweibo.utils.AppManager;
 
 /**

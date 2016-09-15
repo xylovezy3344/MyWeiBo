@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.SplashActivity"
+            android:name=".activity.SplashActivity"
             android:theme="@style/Theme.AppStartLoad">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -34,14 +34,22 @@
             android:windowSoftInputMode="adjustResize">
         </activity>
         <activity
-            android:name=".ui.HomeActivity"
+            android:name=".activity.HomeActivity"
             android:label="@string/title_activity_home"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".ui.UserHomeActivity">
+        <activity android:name=".activity.UserHomeActivity">
         </activity>
-        <activity android:name=".ui.TopicActivity">
+        <activity android:name=".activity.TopicActivity">
+        </activity>
+        <activity android:name=".activity.MyUserInfoActivity">
+        </activity>
+        <activity android:name=".activity.MyWeiboActivity">
+        </activity>
+        <activity android:name=".activity.MyPhotoActivity">
+        </activity>
+        <activity android:name=".activity.MyFriendActivity">
         </activity>
     </application>
 
