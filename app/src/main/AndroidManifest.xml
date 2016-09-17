@@ -49,7 +49,7 @@
         </activity>
         <activity android:name=".activity.MyPhotoActivity">
         </activity>
-        <activity android:name=".activity.MyFriendActivity">
+        <activity android:name=".activity.MyRelationActivity">
         </activity>
     </application>
 

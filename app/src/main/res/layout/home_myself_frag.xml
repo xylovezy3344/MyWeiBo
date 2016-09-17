@@ -11,9 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include layout="@layout/myself_info"/>
+        <include layout="@layout/home_myself_info"/>
 
-        <include layout="@layout/myself_item"/>
+        <include layout="@layout/home_myself_item"/>
 
 
 

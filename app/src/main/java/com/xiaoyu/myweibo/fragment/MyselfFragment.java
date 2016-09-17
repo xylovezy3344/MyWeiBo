@@ -8,10 +8,11 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.xiaoyu.myweibo.R;
-import com.xiaoyu.myweibo.activity.MyFriendActivity;
+import com.xiaoyu.myweibo.activity.MyRelationActivity;
 import com.xiaoyu.myweibo.activity.MyPhotoActivity;
 import com.xiaoyu.myweibo.activity.MyUserInfoActivity;
 import com.xiaoyu.myweibo.activity.MyWeiboActivity;
@@ -61,7 +62,7 @@ public class MyselfFragment extends Fragment implements MyselfContract.View {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.myself_frag, container, false);
+        View view = inflater.inflate(R.layout.home_myself_frag, container, false);
         ButterKnife.bind(this, view);
 
         mMyselfPresenter = new MyselfPresenter(this);
@@ -126,12 +127,12 @@ public class MyselfFragment extends Fragment implements MyselfContract.View {
                 break;
             //关注数量
             case R.id.ll_friends_count:
-                intent = new Intent(getContext(), MyFriendActivity.class);
+                intent = new Intent(getContext(), MyRelationActivity.class);
                 intent.putExtra("tag", MY_FRIENDS);
                 break;
             // 粉丝数量
             case R.id.ll_followers_count:
-                intent = new Intent(getContext(), MyFriendActivity.class);
+                intent = new Intent(getContext(), MyRelationActivity.class);
                 intent.putExtra("tag", MY_FOLLOWERS);
                 break;
             //我的相册

@@ -7,13 +7,13 @@
     android:orientation="vertical">
 
     <!--好友微博-->
-    <include layout="@layout/weibo_item_friend"/>
+    <include layout="@layout/home_weibo_item_friend"/>
 
     <!--原微博-->
-    <include layout="@layout/weibo_item_source"/>
+    <include layout="@layout/home_weibo_item_source"/>
 
     <!--转发 评论 点赞-->
-    <include layout="@layout/weibo_item_comment"/>
+    <include layout="@layout/home_weibo_item_comment"/>
 
 </LinearLayout>
 

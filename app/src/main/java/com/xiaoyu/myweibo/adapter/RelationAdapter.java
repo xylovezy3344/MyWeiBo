@@ -9,7 +9,8 @@ import android.widget.TextView;
 
 import com.xiaoyu.myweibo.R;
 import com.xiaoyu.myweibo.base.BaseApplication;
-import com.xiaoyu.myweibo.bean.FriendInfoList;
+import com.xiaoyu.myweibo.bean.RelationInfoList;
+import com.xiaoyu.myweibo.utils.LoadImage;
 
 import java.util.List;
 
@@ -21,22 +22,19 @@ import cn.bingoogolapple.photopicker.widget.BGAImageView;
  * 关注人列表、粉丝列表适配器
  * Created by xiaoy on 16/9/17.
  */
-public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.FriendsListViewHolder> {
+public class RelationAdapter extends RecyclerView.Adapter<RelationAdapter.FriendsListViewHolder> {
 
-    List<FriendInfoList.UsersBean> mUsers;
+    List<RelationInfoList.UsersBean> mUsers;
 
-    public FriendsListAdapter(FriendInfoList list) {
-        mUsers = list.getUsers();
-    }
-
-    public FriendsListAdapter() {
+    public RelationAdapter(List<RelationInfoList.UsersBean> list) {
+        mUsers = list;
     }
 
     @Override
     public FriendsListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(BaseApplication.context())
-                .inflate(R.layout.my_friend_item, parent, false);
+                .inflate(R.layout.my_relation_item, parent, false);
 
         return new FriendsListViewHolder(view);
     }
@@ -44,12 +42,21 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
     @Override
     public void onBindViewHolder(FriendsListViewHolder holder, int position) {
 
+        RelationInfoList.UsersBean usersBean = mUsers.get(position);
+
+        LoadImage.getInstance().loadImageAsBitmap(usersBean.getAvatar_large(), holder.mIvIcon);
+        holder.mTvName.setText(usersBean.getScreen_name());
+        holder.mTvDescribe.setText(usersBean.getDescription());
+        if (usersBean.isFollowing()) {
+            holder.mIvFollow.setImageResource(R.drawable.card_icon_addtogroup_added);
+        } else {
+            holder.mIvFollow.setImageResource(R.drawable.card_icon_addtogroup);
+        }
     }
 
     @Override
     public int getItemCount() {
-//        return mUsers.size();
-        return 3;
+        return mUsers.size();
     }
 
     class FriendsListViewHolder extends RecyclerView.ViewHolder {

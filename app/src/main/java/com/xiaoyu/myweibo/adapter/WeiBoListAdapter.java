@@ -22,7 +22,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.bingoogolapple.photopicker.widget.BGAImageView;
 import cn.bingoogolapple.photopicker.widget.BGANinePhotoLayout;
 
 /**
@@ -42,7 +41,7 @@ public class WeiboListAdapter extends RecyclerView.Adapter<WeiboListAdapter.Weib
     @Override
     public WeiboListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(BaseApplication.context())
-                .inflate(R.layout.weibo_item, parent, false);
+                .inflate(R.layout.home_weibo_item, parent, false);
 
         return new WeiboListViewHolder(view);
     }

@@ -12,6 +12,9 @@ import com.xiaoyu.myweibo.presenter.SplashPresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * 首屏、闪屏页
+ */
 public class SplashActivity extends Activity implements SplashContract.View {
 
     @BindView(R.id.fl_splash)

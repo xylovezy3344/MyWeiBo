@@ -2,6 +2,7 @@ package com.xiaoyu.myweibo.network;
 
 import com.xiaoyu.myweibo.base.BaseApplication;
 import com.xiaoyu.myweibo.bean.UserInfo;
+import com.xiaoyu.myweibo.utils.NetWorkUtils;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -20,13 +21,8 @@ public class GetUserInfo {
 
         String baseUrl = "https://api.weibo.com/2/users/";
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build();
-
-        GetUserInfoService getUserInfoService = retrofit.create(GetUserInfoService.class);
+        GetUserInfoService getUserInfoService = NetWorkUtils.getRetrofit(baseUrl)
+                .create(GetUserInfoService.class);
 
         getUserInfoService.getUserInfo(uid, BaseApplication.accessToken().getToken())
                 .subscribeOn(Schedulers.io())

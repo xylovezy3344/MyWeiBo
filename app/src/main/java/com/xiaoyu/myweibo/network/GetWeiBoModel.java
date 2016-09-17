@@ -3,6 +3,7 @@ package com.xiaoyu.myweibo.network;
 import com.orhanobut.logger.Logger;
 import com.xiaoyu.myweibo.base.BaseApplication;
 import com.xiaoyu.myweibo.bean.WeiboDetailList;
+import com.xiaoyu.myweibo.utils.NetWorkUtils;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -24,13 +25,8 @@ public class GetWeiboModel {
 
         String baseUrl = "https://api.weibo.com/2/statuses/";
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build();
-
-        GetWeiboService getWeiboService = retrofit.create(GetWeiboService.class);
+        GetWeiboService getWeiboService = NetWorkUtils.getRetrofit(baseUrl)
+                .create(GetWeiboService.class);
 
         Logger.d(BaseApplication.accessToken().getToken());
 

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class FriendInfoList {
+public class RelationInfoList {
 
     /**
      * id : 5997502658

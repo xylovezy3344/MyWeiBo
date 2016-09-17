@@ -4,8 +4,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.xiaoyu.myweibo.R;
+import com.xiaoyu.myweibo.base.BaseActivity;
 
-public class MyUserInfoActivity extends AppCompatActivity {
+/**
+ * 我的信息页面
+ */
+public class MyUserInfoActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

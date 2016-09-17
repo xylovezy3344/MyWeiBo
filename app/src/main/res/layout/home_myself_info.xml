@@ -31,6 +31,8 @@
             android:orientation="vertical">
 
             <TextView
+                android:lines="1"
+                android:ellipsize="end"
                 android:id="@+id/tv_my_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -39,6 +41,8 @@
                 android:textSize="15sp"/>
 
             <TextView
+                android:lines="1"
+                android:ellipsize="end"
                 android:id="@+id/tv_my_describe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

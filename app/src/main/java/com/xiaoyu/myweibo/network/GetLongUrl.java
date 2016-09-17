@@ -2,6 +2,7 @@ package com.xiaoyu.myweibo.network;
 
 import com.xiaoyu.myweibo.base.BaseApplication;
 import com.xiaoyu.myweibo.bean.LongUrl;
+import com.xiaoyu.myweibo.utils.NetWorkUtils;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -11,6 +12,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
+ * 微博内容的短链接转长链接
  * Created by xiaoyu on 16-9-11.
  */
 public class GetLongUrl {
@@ -19,13 +21,8 @@ public class GetLongUrl {
 
         String baseUrl = "https://api.weibo.com/2/short_url/";
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build();
-
-        GetLongUrlService getLongUrlService = retrofit.create(GetLongUrlService.class);
+        GetLongUrlService getLongUrlService = NetWorkUtils.getRetrofit(baseUrl)
+                .create(GetLongUrlService.class);
 
         getLongUrlService.getLongUrl(BaseApplication.accessToken().getToken(), shortUrl)
                 .subscribeOn(Schedulers.io())

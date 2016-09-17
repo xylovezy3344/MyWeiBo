@@ -5,11 +5,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.xiaoyu.myweibo.R;
+import com.xiaoyu.myweibo.base.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MyWeiboActivity extends AppCompatActivity {
+/**
+ * 我的微博、我的赞页面
+ */
+public class MyWeiboActivity extends BaseActivity {
 
     @BindView(R.id.tvttt)
     TextView mTvttt;
