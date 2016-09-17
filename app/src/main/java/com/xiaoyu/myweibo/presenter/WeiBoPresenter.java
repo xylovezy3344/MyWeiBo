@@ -1,10 +1,10 @@
 package com.xiaoyu.myweibo.presenter;
 
 import com.orhanobut.logger.Logger;
-import com.xiaoyu.myweibo.bean.WeiBoDetailList;
-import com.xiaoyu.myweibo.contract.WeiBoContract;
-import com.xiaoyu.myweibo.network.GetWeiBoModel;
-import com.xiaoyu.myweibo.fragment.WeiBoFragment;
+import com.xiaoyu.myweibo.bean.WeiboDetailList;
+import com.xiaoyu.myweibo.contract.WeiboContract;
+import com.xiaoyu.myweibo.fragment.WeiboFragment;
+import com.xiaoyu.myweibo.network.GetWeiboModel;
 
 import java.util.List;
 
@@ -14,25 +14,25 @@ import rx.Observer;
  * 主页面Presenter
  * Created by xiaoyu on 16-8-29.
  */
-public class WeiBoPresenter implements WeiBoContract.Presenter {
+public class WeiboPresenter implements WeiboContract.Presenter {
 
-    private WeiBoContract.View mHomeView;
-    private List<WeiBoDetailList.StatusesBean> mOldWeiboList;
+    private WeiboContract.View mHomeView;
+    private List<WeiboDetailList.StatusesBean> mOldWeiboList;
 
     //微博Api参数
     private long mSinceId = 0;
     private long mMaxId = 0;
 
-    public WeiBoPresenter(WeiBoContract.View homeView) {
+    public WeiboPresenter(WeiboContract.View homeView) {
         this.mHomeView = homeView;
     }
 
     @Override
-    public void getWeiBo(final int type, List<WeiBoDetailList.StatusesBean> oldWeiboList) {
+    public void getWeiBo(final int type, List<WeiboDetailList.StatusesBean> oldWeiboList) {
 
         mOldWeiboList = oldWeiboList;
 
-        Observer<WeiBoDetailList> observer = new Observer<WeiBoDetailList>() {
+        Observer<WeiboDetailList> observer = new Observer<WeiboDetailList>() {
             @Override
             public void onCompleted() {
                 Logger.d("onCompleted");
@@ -44,19 +44,19 @@ public class WeiBoPresenter implements WeiBoContract.Presenter {
             }
 
             @Override
-            public void onNext(WeiBoDetailList weiBoDetailList) {
+            public void onNext(WeiboDetailList weiBoDetailList) {
 
-                if (type == WeiBoFragment.FIRST_GET) {
+                if (type == WeiboFragment.FIRST_GET) {
                     mSinceId = weiBoDetailList.getSince_id();
                     mMaxId = weiBoDetailList.getMax_id();
                     mHomeView.showWeiBo(weiBoDetailList.getStatuses());
                 }
-                else if (type == WeiBoFragment.DOWN_REFRESH) {
+                else if (type == WeiboFragment.DOWN_REFRESH) {
                     mSinceId = weiBoDetailList.getSince_id();
                     downUpdateData(weiBoDetailList.getStatuses());
                     mHomeView.refreshWeiBo(mOldWeiboList);
                 }
-                else if (type == WeiBoFragment.UP_REFRESH) {
+                else if (type == WeiboFragment.UP_REFRESH) {
                     mMaxId = weiBoDetailList.getMax_id();
 
                     pullUpdateData(weiBoDetailList.getStatuses());
@@ -65,15 +65,15 @@ public class WeiBoPresenter implements WeiBoContract.Presenter {
             }
         };
 
-        if (type == WeiBoFragment.FIRST_GET) {
-            GetWeiBoModel.getLatestWeiBo(observer);
+        if (type == WeiboFragment.FIRST_GET) {
+            GetWeiboModel.getLatestWeiBo(observer);
         }
-        else if (type == WeiBoFragment.DOWN_REFRESH) {
-            GetWeiBoModel.getNewWeiBo(mSinceId, observer);
+        else if (type == WeiboFragment.DOWN_REFRESH) {
+            GetWeiboModel.getNewWeiBo(mSinceId, observer);
         }
-        else if (type == WeiBoFragment.UP_REFRESH) {
+        else if (type == WeiboFragment.UP_REFRESH) {
 
-            GetWeiBoModel.getOldWeiBo(mMaxId, observer);
+            GetWeiboModel.getOldWeiBo(mMaxId, observer);
         }
     }
 
@@ -81,7 +81,7 @@ public class WeiBoPresenter implements WeiBoContract.Presenter {
      * 更新微博列表数据
      * @param list 刷新获取的微博集合
      */
-    private void downUpdateData(List<WeiBoDetailList.StatusesBean> list) {
+    private void downUpdateData(List<WeiboDetailList.StatusesBean> list) {
 
         int keepWeiBoNum = 30;
 
@@ -101,9 +101,9 @@ public class WeiBoPresenter implements WeiBoContract.Presenter {
         }
     }
 
-    private void pullUpdateData(List<WeiBoDetailList.StatusesBean> list) {
+    private void pullUpdateData(List<WeiboDetailList.StatusesBean> list) {
 
-        for (WeiBoDetailList.StatusesBean statusesBean : list) {
+        for (WeiboDetailList.StatusesBean statusesBean : list) {
             mOldWeiboList.add(statusesBean);
         }
     }

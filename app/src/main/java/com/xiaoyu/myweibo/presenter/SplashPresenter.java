@@ -12,7 +12,7 @@ import com.sina.weibo.sdk.auth.WeiboAuthListener;
 import com.sina.weibo.sdk.auth.sso.SsoHandler;
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.xiaoyu.myweibo.R;
-import com.xiaoyu.myweibo.contract.WeiBoConstants;
+import com.xiaoyu.myweibo.contract.WeiboConstants;
 import com.xiaoyu.myweibo.base.BaseApplication;
 import com.xiaoyu.myweibo.contract.SplashContract;
 import com.xiaoyu.myweibo.utils.AccessTokenKeeper;
@@ -38,8 +38,8 @@ public class SplashPresenter implements SplashContract.Presenter {
     public void loginWeiBo() {
 
         //微博授权
-        AuthInfo authInfo = new AuthInfo(BaseApplication.context(), WeiBoConstants.APP_KEY,
-                WeiBoConstants.REDIRECT_URL, null);
+        AuthInfo authInfo = new AuthInfo(BaseApplication.context(), WeiboConstants.APP_KEY,
+                WeiboConstants.REDIRECT_URL, null);
         mSsoHandler = new SsoHandler((Activity) mLoginView, authInfo);
 
         mSsoHandler.authorize(new AuthListener());

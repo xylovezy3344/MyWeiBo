@@ -1,7 +1,6 @@
 package com.xiaoyu.myweibo.network;
 
 import com.xiaoyu.myweibo.bean.UserInfo;
-import com.xiaoyu.myweibo.bean.WeiBoDetailList;
 
 import retrofit2.http.GET;
 import retrofit2.http.Query;

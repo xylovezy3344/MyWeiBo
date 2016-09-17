@@ -1,22 +1,22 @@
 package com.xiaoyu.myweibo.contract;
 
-import com.xiaoyu.myweibo.bean.WeiBoDetailList;
+import com.xiaoyu.myweibo.bean.WeiboDetailList;
 
 import java.util.List;
 
 /**
  * View和Presenter契约类
  */
-public interface WeiBoContract {
+public interface WeiboContract {
 
     interface View  {
 
-        void showWeiBo(List<WeiBoDetailList.StatusesBean> list);
-        void refreshWeiBo(List<WeiBoDetailList.StatusesBean> list);
+        void showWeiBo(List<WeiboDetailList.StatusesBean> list);
+        void refreshWeiBo(List<WeiboDetailList.StatusesBean> list);
     }
 
     interface Presenter {
 
-        void getWeiBo(int type, List<WeiBoDetailList.StatusesBean> oldWeiboList);
+        void getWeiBo(int type, List<WeiboDetailList.StatusesBean> oldWeiboList);
     }
 }

@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by xiaoyu on 16-9-1.
  */
-public class WeiBoDetailList {
+public class WeiboDetailList {
 
     /**
      * ad : []

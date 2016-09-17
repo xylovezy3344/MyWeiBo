@@ -16,7 +16,7 @@ import com.xiaoyu.myweibo.base.BaseActivity;
 import com.xiaoyu.myweibo.fragment.DiscoveryFragment;
 import com.xiaoyu.myweibo.fragment.MessageFragment;
 import com.xiaoyu.myweibo.fragment.MyselfFragment;
-import com.xiaoyu.myweibo.fragment.WeiBoFragment;
+import com.xiaoyu.myweibo.fragment.WeiboFragment;
 import com.xiaoyu.myweibo.utils.ActivityUtils;
 
 import butterknife.BindView;
@@ -32,7 +32,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
     NavigationView mNavView;
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
-    private WeiBoFragment mWeiBoFragment;
+    private WeiboFragment mWeiboFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +55,12 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
         mCollapsingToolbar.setTitle("XXXXXX");
 
         //填充fragment
-        mWeiBoFragment = (WeiBoFragment) getSupportFragmentManager()
+        mWeiboFragment = (WeiboFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.fl_weibo_list);
-        if (mWeiBoFragment == null) {
-            mWeiBoFragment = new WeiBoFragment();
+        if (mWeiboFragment == null) {
+            mWeiboFragment = new WeiboFragment();
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
-                    mWeiBoFragment, R.id.fl_weibo_list);
+                    mWeiboFragment, R.id.fl_weibo_list);
         }
     }
 
@@ -88,7 +88,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
 
         if (id == R.id.action_refresh) {
             //点击刷新按钮，等同于下拉刷新
-            mWeiBoFragment.refreshForActivity();
+            mWeiboFragment.refreshForActivity();
             return true;
         }
 
@@ -103,7 +103,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
         if (id == R.id.nav_home) {
             //填充微博页面
             ActivityUtils.replaceFragment(getSupportFragmentManager(),
-                    mWeiBoFragment, R.id.fl_weibo_list);
+                    mWeiboFragment, R.id.fl_weibo_list);
         } else if (id == R.id.nav_message) {
             //填充消息页面
             MessageFragment messageFragment = MessageFragment.getInstance();

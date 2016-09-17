@@ -2,7 +2,6 @@ package com.xiaoyu.myweibo.network;
 
 import com.xiaoyu.myweibo.base.BaseApplication;
 import com.xiaoyu.myweibo.bean.UserInfo;
-import com.xiaoyu.myweibo.bean.WeiBoDetailList;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;

@@ -8,33 +8,32 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.orhanobut.logger.Logger;
 import com.xiaoyu.myweibo.R;
-import com.xiaoyu.myweibo.adapter.WeiBoListAdapter;
-import com.xiaoyu.myweibo.bean.WeiBoDetailList;
-import com.xiaoyu.myweibo.contract.WeiBoContract;
-import com.xiaoyu.myweibo.presenter.WeiBoPresenter;
+import com.xiaoyu.myweibo.adapter.WeiboListAdapter;
+import com.xiaoyu.myweibo.bean.WeiboDetailList;
+import com.xiaoyu.myweibo.contract.WeiboContract;
+import com.xiaoyu.myweibo.presenter.WeiboPresenter;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class WeiBoFragment extends Fragment implements WeiBoContract.View {
+public class WeiboFragment extends Fragment implements WeiboContract.View {
 
     @BindView(R.id.rv_weibo_detail)
     RecyclerView mRvWeiboDetail;
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout mRefreshLayout;
 
-    private WeiBoListAdapter mAdapter;
-    private WeiBoPresenter mWeiBoPresenter;
-    private List<WeiBoDetailList.StatusesBean> mWeiBoDetailList;
+    private WeiboListAdapter mAdapter;
+    private WeiboPresenter mWeiboPresenter;
+    private List<WeiboDetailList.StatusesBean> mWeiBoDetailList;
 
     //表示首次请求数据
     public static int FIRST_GET = 0;
@@ -67,13 +66,13 @@ public class WeiBoFragment extends Fragment implements WeiBoContract.View {
         //设置Item增加、移除动画
         mRvWeiboDetail.setItemAnimator(new DefaultItemAnimator());
 
-        mWeiBoPresenter = new WeiBoPresenter(this);
+        mWeiboPresenter = new WeiboPresenter(this);
 
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 //下拉刷新
-                mWeiBoPresenter.getWeiBo(DOWN_REFRESH, mWeiBoDetailList);
+                mWeiboPresenter.getWeiBo(DOWN_REFRESH, mWeiBoDetailList);
             }
         });
 
@@ -88,7 +87,7 @@ public class WeiBoFragment extends Fragment implements WeiBoContract.View {
                 // dy>0 表示向下滑动
                 if (lastVisibleItem == totalItemCount - 1 && dy > 0) {
                     if (!mRefreshLayout.isRefreshing()) {
-                        mWeiBoPresenter.getWeiBo(UP_REFRESH, mWeiBoDetailList);
+                        mWeiboPresenter.getWeiBo(UP_REFRESH, mWeiBoDetailList);
                         mRefreshLayout.setRefreshing(true);
                     }
                 }
@@ -96,22 +95,22 @@ public class WeiBoFragment extends Fragment implements WeiBoContract.View {
         });
 
         //首次请求微博数据
-        mWeiBoPresenter.getWeiBo(FIRST_GET, null);
+        mWeiboPresenter.getWeiBo(FIRST_GET, null);
 
         return view;
     }
 
     @Override
-    public void showWeiBo(List<WeiBoDetailList.StatusesBean> list) {
+    public void showWeiBo(List<WeiboDetailList.StatusesBean> list) {
         mWeiBoDetailList = list;
         //设置adapter
-        mAdapter = new WeiBoListAdapter(mWeiBoDetailList);
+        mAdapter = new WeiboListAdapter(mWeiBoDetailList);
         mRvWeiboDetail.setAdapter(mAdapter);
         Logger.e(mWeiBoDetailList.size() + "");
     }
 
     @Override
-    public void refreshWeiBo(List<WeiBoDetailList.StatusesBean> list) {
+    public void refreshWeiBo(List<WeiboDetailList.StatusesBean> list) {
         mWeiBoDetailList = list;
         mAdapter.notifyDataSetChanged();
         mRefreshLayout.setRefreshing(false);
@@ -123,6 +122,6 @@ public class WeiBoFragment extends Fragment implements WeiBoContract.View {
      */
     public void refreshForActivity() {
         mRefreshLayout.setRefreshing(true);
-        mWeiBoPresenter.getWeiBo(DOWN_REFRESH, mWeiBoDetailList);
+        mWeiboPresenter.getWeiBo(DOWN_REFRESH, mWeiBoDetailList);
     }
 }

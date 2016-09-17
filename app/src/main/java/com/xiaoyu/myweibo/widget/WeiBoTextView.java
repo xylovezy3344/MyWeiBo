@@ -21,22 +21,22 @@ import com.xiaoyu.myweibo.utils.AppManager;
  * @XX 变蓝色， 话题边蓝色以及设置点击事件 的自定义TextVIew
  * Created by xiaoyu on 16-9-6.
  */
-public class WeiBoTextView extends TextView {
+public class WeiboTextView extends TextView {
 
 
-    public WeiBoTextView(Context context) {
+    public WeiboTextView(Context context) {
         super(context);
     }
 
-    public WeiBoTextView(Context context, AttributeSet attrs) {
+    public WeiboTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public WeiBoTextView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public WeiboTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
-    public WeiBoTextView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public WeiboTextView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
