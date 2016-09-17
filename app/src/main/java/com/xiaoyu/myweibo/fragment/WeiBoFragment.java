@@ -57,7 +57,7 @@ public class WeiboFragment extends Fragment implements WeiboContract.View {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.weibo_frag, container, false);
+        View view = inflater.inflate(R.layout.home_weibo_frag, container, false);
         ButterKnife.bind(this, view);
 
         //设置布局管理器
@@ -95,6 +95,7 @@ public class WeiboFragment extends Fragment implements WeiboContract.View {
         });
 
         //首次请求微博数据
+        mRefreshLayout.setRefreshing(true);
         mWeiboPresenter.getWeiBo(FIRST_GET, null);
 
         return view;
@@ -106,15 +107,15 @@ public class WeiboFragment extends Fragment implements WeiboContract.View {
         //设置adapter
         mAdapter = new WeiboListAdapter(mWeiBoDetailList);
         mRvWeiboDetail.setAdapter(mAdapter);
-        Logger.e(mWeiBoDetailList.size() + "");
+        mRefreshLayout.setRefreshing(false);
     }
 
     @Override
     public void refreshWeiBo(List<WeiboDetailList.StatusesBean> list) {
         mWeiBoDetailList = list;
         mAdapter.notifyDataSetChanged();
+        mLayoutManager.scrollToPosition(0);
         mRefreshLayout.setRefreshing(false);
-        Logger.e(mWeiBoDetailList.size() + "");
     }
 
     /**
