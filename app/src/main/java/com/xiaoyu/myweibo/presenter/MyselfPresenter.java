@@ -23,6 +23,8 @@ public class MyselfPresenter implements MyselfContract.Presenter {
     @Override
     public void getUserInfo() {
 
+        mMyselfView.showProgressDialog();
+
         long uid = Long.parseLong(BaseApplication.accessToken().getUid());
 
         GetUserInfo.getUserInfo(uid, new Observer<UserInfo>() {
@@ -39,6 +41,7 @@ public class MyselfPresenter implements MyselfContract.Presenter {
             @Override
             public void onNext(UserInfo userInfo) {
                 mMyselfView.showUserInfo(userInfo);
+                mMyselfView.hideProgressDialog();
             }
         });
     }

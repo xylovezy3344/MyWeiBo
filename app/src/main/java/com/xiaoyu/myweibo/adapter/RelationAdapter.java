@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.xiaoyu.myweibo.R;
 import com.xiaoyu.myweibo.base.BaseApplication;
 import com.xiaoyu.myweibo.bean.RelationInfoList;
-import com.xiaoyu.myweibo.utils.LoadImage;
+import com.xiaoyu.myweibo.utils.LoadImageUtils;
 
 import java.util.List;
 
@@ -44,7 +44,7 @@ public class RelationAdapter extends RecyclerView.Adapter<RelationAdapter.Friend
 
         RelationInfoList.UsersBean usersBean = mUsers.get(position);
 
-        LoadImage.getInstance().loadImageAsBitmap(usersBean.getAvatar_large(), holder.mIvIcon);
+        LoadImageUtils.getInstance().loadImageAsBitmap(usersBean.getAvatar_large(), holder.mIvIcon);
         holder.mTvName.setText(usersBean.getScreen_name());
         holder.mTvDescribe.setText(usersBean.getDescription());
         if (usersBean.isFollowing()) {

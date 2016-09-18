@@ -12,16 +12,16 @@ import com.xiaoyu.myweibo.base.BaseApplication;
  * 图片加载工具
  * Created by xiaoyu on 16-8-27.
  */
-public class LoadImage {
+public class LoadImageUtils {
 
-    private static LoadImage instance;
+    private static LoadImageUtils instance;
 
-    private LoadImage() {
+    private LoadImageUtils() {
     }
 
-    public static LoadImage getInstance() {
+    public static LoadImageUtils getInstance() {
         if (instance == null) {
-            instance = new LoadImage();
+            instance = new LoadImageUtils();
         }
         return instance;
     }

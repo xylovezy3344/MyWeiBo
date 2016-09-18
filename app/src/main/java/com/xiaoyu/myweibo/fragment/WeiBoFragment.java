@@ -18,6 +18,7 @@ import com.xiaoyu.myweibo.adapter.WeiboListAdapter;
 import com.xiaoyu.myweibo.bean.WeiboDetailList;
 import com.xiaoyu.myweibo.contract.WeiboContract;
 import com.xiaoyu.myweibo.presenter.WeiboPresenter;
+import com.xiaoyu.myweibo.utils.ProgressDialogUtils;
 
 import java.util.List;
 
@@ -95,7 +96,6 @@ public class WeiboFragment extends Fragment implements WeiboContract.View {
         });
 
         //首次请求微博数据
-        mRefreshLayout.setRefreshing(true);
         mWeiboPresenter.getWeiBo(FIRST_GET, null);
 
         return view;
@@ -107,7 +107,6 @@ public class WeiboFragment extends Fragment implements WeiboContract.View {
         //设置adapter
         mAdapter = new WeiboListAdapter(mWeiBoDetailList);
         mRvWeiboDetail.setAdapter(mAdapter);
-        mRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -124,5 +123,15 @@ public class WeiboFragment extends Fragment implements WeiboContract.View {
     public void refreshForActivity() {
         mRefreshLayout.setRefreshing(true);
         mWeiboPresenter.getWeiBo(DOWN_REFRESH, mWeiBoDetailList);
+    }
+
+    @Override
+    public void showProgressDialog() {
+        ProgressDialogUtils.ShowProgressDialog();
+    }
+
+    @Override
+    public void hideProgressDialog() {
+        ProgressDialogUtils.hideProgressDialog();
     }
 }

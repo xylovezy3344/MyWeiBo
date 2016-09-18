@@ -1,6 +1,5 @@
 package com.xiaoyu.myweibo.network;
 
-import com.xiaoyu.myweibo.base.BaseNetService;
 import com.xiaoyu.myweibo.bean.RelationInfoList;
 
 import retrofit2.http.GET;

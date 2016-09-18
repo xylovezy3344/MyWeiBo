@@ -50,6 +50,8 @@ public class WeiboPresenter implements WeiboContract.Presenter {
                     mSinceId = weiBoDetailList.getSince_id();
                     mMaxId = weiBoDetailList.getMax_id();
                     mHomeView.showWeiBo(weiBoDetailList.getStatuses());
+
+                    mHomeView.hideProgressDialog();
                 }
                 else if (type == WeiboFragment.DOWN_REFRESH) {
                     mSinceId = weiBoDetailList.getSince_id();
@@ -66,6 +68,7 @@ public class WeiboPresenter implements WeiboContract.Presenter {
         };
 
         if (type == WeiboFragment.FIRST_GET) {
+            mHomeView.showProgressDialog();
             GetWeiboModel.getLatestWeiBo(observer);
         }
         else if (type == WeiboFragment.DOWN_REFRESH) {

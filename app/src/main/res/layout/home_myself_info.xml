@@ -16,10 +16,9 @@
 
         <cn.bingoogolapple.photopicker.widget.BGAImageView
             android:id="@+id/iv_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:scaleType="centerCrop"
-            android:src="@mipmap/icon"
             app:bga_iv_cornerRadius="50dp"/>
 
         <LinearLayout
@@ -36,7 +35,6 @@
                 android:id="@+id/tv_my_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="XXXXXXXX"
                 android:textColor="@color/primary_text"
                 android:textSize="15sp"/>
 
@@ -47,7 +45,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="简介：xxxxxxxx"
                 android:textColor="@color/secondary_text"
                 android:textSize="12sp"/>
 
@@ -80,7 +77,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="314"
                 android:textColor="@color/primary_text"
                 android:textSize="14sp"/>
 
@@ -109,7 +105,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="314"
                 android:textColor="@color/primary_text"
                 android:textSize="14sp"/>
 
@@ -138,7 +133,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="314"
                 android:textColor="@color/primary_text"
                 android:textSize="14sp"/>
 

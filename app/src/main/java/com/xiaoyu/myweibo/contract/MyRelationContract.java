@@ -1,5 +1,7 @@
 package com.xiaoyu.myweibo.contract;
 
+import com.xiaoyu.myweibo.base.BasePresenter;
+import com.xiaoyu.myweibo.base.BaseView;
 import com.xiaoyu.myweibo.bean.RelationInfoList;
 
 import java.util.List;
@@ -10,12 +12,12 @@ import java.util.List;
  */
 public interface MyRelationContract {
 
-    interface View {
+    interface View extends BaseView {
         void showRelationList(List<RelationInfoList.UsersBean> list);
         void loadMore(List<RelationInfoList.UsersBean> list);
     }
 
-    interface Presenter {
+    interface Presenter extends BasePresenter {
         void getRelationList(int type, List<RelationInfoList.UsersBean> oldList, String tag);
     }
 }

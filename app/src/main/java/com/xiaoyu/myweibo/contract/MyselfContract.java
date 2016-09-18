@@ -1,5 +1,7 @@
 package com.xiaoyu.myweibo.contract;
 
+import com.xiaoyu.myweibo.base.BasePresenter;
+import com.xiaoyu.myweibo.base.BaseView;
 import com.xiaoyu.myweibo.bean.UserInfo;
 
 /**
@@ -8,11 +10,11 @@ import com.xiaoyu.myweibo.bean.UserInfo;
  */
 public interface MyselfContract {
 
-    interface View {
+    interface View extends BaseView {
         void showUserInfo(UserInfo userInfo);
     }
 
-    interface Presenter {
+    interface Presenter extends BasePresenter {
         void getUserInfo();
     }
 }

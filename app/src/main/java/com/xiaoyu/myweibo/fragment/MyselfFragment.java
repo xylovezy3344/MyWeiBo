@@ -19,7 +19,8 @@ import com.xiaoyu.myweibo.activity.MyWeiboActivity;
 import com.xiaoyu.myweibo.bean.UserInfo;
 import com.xiaoyu.myweibo.contract.MyselfContract;
 import com.xiaoyu.myweibo.presenter.MyselfPresenter;
-import com.xiaoyu.myweibo.utils.LoadImage;
+import com.xiaoyu.myweibo.utils.LoadImageUtils;
+import com.xiaoyu.myweibo.utils.ProgressDialogUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,6 +45,7 @@ public class MyselfFragment extends Fragment implements MyselfContract.View {
     TextView mTvFriendsCount;
     @BindView(R.id.tv_followers_count)
     TextView mTvFollowersCount;
+
     private MyselfPresenter mMyselfPresenter;
 
     private MyselfFragment() {
@@ -75,7 +77,7 @@ public class MyselfFragment extends Fragment implements MyselfContract.View {
     @Override
     public void showUserInfo(UserInfo userInfo) {
         //头像
-        LoadImage.getInstance().loadImageAsBitmap(userInfo.getProfile_image_url(), mIvIcon);
+        LoadImageUtils.getInstance().loadImageAsBitmap(userInfo.getProfile_image_url(), mIvIcon);
         //昵称
         mTvMyName.setText(userInfo.getScreen_name());
         //简介
@@ -90,6 +92,16 @@ public class MyselfFragment extends Fragment implements MyselfContract.View {
         mTvFriendsCount.setText(String.valueOf(userInfo.getFriends_count()));
         // 粉丝数
         mTvFollowersCount.setText(String.valueOf(userInfo.getFollowers_count()));
+    }
+
+    @Override
+    public void showProgressDialog() {
+        ProgressDialogUtils.ShowProgressDialog();
+    }
+
+    @Override
+    public void hideProgressDialog() {
+        ProgressDialogUtils.hideProgressDialog();
     }
 
     //我的微博、我的赞、我的收藏，跳转到同一页面（微博列表）

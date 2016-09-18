@@ -13,7 +13,7 @@ import com.xiaoyu.myweibo.base.BaseApplication;
 import com.xiaoyu.myweibo.bean.WeiboDetailList;
 import com.xiaoyu.myweibo.utils.AppManager;
 import com.xiaoyu.myweibo.utils.FormatUtils;
-import com.xiaoyu.myweibo.utils.LoadImage;
+import com.xiaoyu.myweibo.utils.LoadImageUtils;
 import com.xiaoyu.myweibo.utils.PreviewPhoto;
 import com.xiaoyu.myweibo.widget.WeiboTextView;
 
@@ -52,7 +52,7 @@ public class WeiboListAdapter extends RecyclerView.Adapter<WeiboListAdapter.Weib
          * 转发微博者
          */
         //头像
-        LoadImage.getInstance().loadImageAsBitmap(mWeiBoDetailList.get(position)
+        LoadImageUtils.getInstance().loadImageAsBitmap(mWeiBoDetailList.get(position)
                 .getUser().getAvatar_hd(), holder.ivUserIcon);
         //用户名
         holder.tvUserName.setText(mWeiBoDetailList.get(position).getUser().getName());

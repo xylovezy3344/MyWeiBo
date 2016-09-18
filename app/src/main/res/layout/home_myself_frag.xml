@@ -1,22 +1,19 @@
 <android.support.v4.widget.NestedScrollView
-    android:background="@color/bg_gray"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_gray"
     tools:context=".fragment.MyselfFragment">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <include layout="@layout/home_myself_info"/>
 
         <include layout="@layout/home_myself_item"/>
-
-
-
 
     </LinearLayout>
 

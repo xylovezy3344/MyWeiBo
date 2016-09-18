@@ -1,6 +1,8 @@
 package com.xiaoyu.myweibo.activity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -20,6 +22,7 @@ import com.xiaoyu.myweibo.bean.RelationInfoList;
 import com.xiaoyu.myweibo.contract.MyRelationContract;
 import com.xiaoyu.myweibo.fragment.MyselfFragment;
 import com.xiaoyu.myweibo.presenter.MyRelationPresenter;
+import com.xiaoyu.myweibo.utils.ProgressDialogUtils;
 
 import java.util.List;
 
@@ -126,5 +129,15 @@ public class MyRelationActivity extends BaseActivity implements MyRelationContra
         mUserList = list;
         mAdapter.notifyDataSetChanged();
         mRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void showProgressDialog() {
+        ProgressDialogUtils.ShowProgressDialog();
+    }
+
+    @Override
+    public void hideProgressDialog() {
+        ProgressDialogUtils.hideProgressDialog();
     }
 }

@@ -30,6 +30,8 @@ public class MyRelationPresenter implements MyRelationContract.Presenter {
     @Override
     public void getRelationList(final int type, List<RelationInfoList.UsersBean> oldList, final String tag) {
 
+        mMyRelationView.showProgressDialog();
+
         mOldList =  oldList;
 
         Observer<RelationInfoList> observer = new Observer<RelationInfoList>() {
@@ -52,6 +54,8 @@ public class MyRelationPresenter implements MyRelationContract.Presenter {
                     pullUpdateData(list.getUsers());
                     mMyRelationView.loadMore(mOldList);
                 }
+
+                mMyRelationView.hideProgressDialog();
             }
         };
 
