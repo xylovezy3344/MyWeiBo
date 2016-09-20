@@ -221,7 +221,9 @@ public class BGAPhotoPreviewActivity extends BGAPPToolbarActivity implements Pho
         if (url.startsWith("file")) {
             file = new File(url.replace("file://", ""));
             if (file.exists()) {
-                BGAPhotoPickerUtil.showSafe(BGAPhotoPreviewActivity.this, getString(R.string.bga_pp_save_img_success_folder, file.getParentFile().getAbsolutePath()));
+                BGAPhotoPickerUtil.showSafe(BGAPhotoPreviewActivity.this,
+                        getString(R.string.bga_pp_save_img_success_folder,
+                                file.getParentFile().getAbsolutePath()));
                 return;
             }
         }

@@ -12,6 +12,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
 
+import com.xiaoyu.myweibo.activity.SingleWeiboActivity;
+import com.xiaoyu.myweibo.activity.WebContentActivity;
 import com.xiaoyu.myweibo.base.BaseApplication;
 import com.xiaoyu.myweibo.activity.TopicActivity;
 import com.xiaoyu.myweibo.activity.UserHomeActivity;
@@ -112,25 +114,39 @@ public class WeiboTextView extends TextView {
             }
         }
 
-//        //微博短链接变蓝
-//        int urlStartIndex = text.indexOf("http://t.cn/");
-//        int urlEndIndex;
-//
-//        while (urlStartIndex != -1) {
-//
-//            urlEndIndex = urlStartIndex + 19;
-//
-//            if (urlEndIndex != -1) {
-//
-//                String shortUrl = text.substring(urlStartIndex , urlEndIndex);
-//
-//                spannable.setSpan(new TextClick(shortUrl, "short_url"), urlStartIndex,
-//                        urlEndIndex , Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-//
-//                urlStartIndex = text.indexOf("http://t.cn/", urlEndIndex + 1);
-//            }
-//        }
+        //微博短链接变蓝
+        int urlStartIndex = text.indexOf("http://t.cn/");
+        int urlEndIndex;
 
+        while (urlStartIndex != -1) {
+
+            urlEndIndex = urlStartIndex + 19;
+
+            if (urlEndIndex != -1) {
+
+                String shortUrl = text.substring(urlStartIndex , urlEndIndex);
+
+                spannable.setSpan(new TextClick(shortUrl, "short_url"), urlStartIndex,
+                        urlEndIndex , Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                urlStartIndex = text.indexOf("http://t.cn/", urlEndIndex + 1);
+            }
+        }
+
+        //全文两个字变蓝，后面的地址隐藏
+        int fullTextStartIndex = text.indexOf("全文： http://m.weibo.cn/");
+        int fullTextEndIndex = fullTextStartIndex + 2;
+
+        if (fullTextStartIndex != -1) {
+
+            String fullTextUrl = text.substring(fullTextStartIndex + 4, text.length());
+
+            spannable.setSpan(new TextClick(fullTextUrl, "full_text"), fullTextStartIndex,
+                    fullTextEndIndex , Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            spannable.delete(fullTextStartIndex + 2, text.length());
+
+        }
 
         return spannable;
     }
@@ -153,10 +169,16 @@ public class WeiboTextView extends TextView {
 
             if ("user_name".equals(tag)) {
                 intent = new Intent(BaseApplication.context(), UserHomeActivity.class);
-                intent.putExtra("user_name", text);
-            } else {
+                intent.putExtra(UserHomeActivity.USER_UID, text);
+            } else if ("topic".equals(tag)){
                 intent = new Intent(BaseApplication.context(), TopicActivity.class);
-                intent.putExtra("topic", text);
+                intent.putExtra(TopicActivity.TOPIC_TITLE, text);
+            } else if ("short_url".equals(tag)){
+                intent = new Intent(BaseApplication.context(), WebContentActivity.class);
+                intent.putExtra(WebContentActivity.WEB_CONTENT, text);
+            } else {
+                intent = new Intent(BaseApplication.context(), SingleWeiboActivity.class);
+                intent.putExtra(SingleWeiboActivity.SINGLE_WEIBO, text);
             }
 
             AppManager.getAppManager().currentActivity().startActivity(intent);

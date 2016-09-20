@@ -11,13 +11,14 @@ import com.xiaoyu.myweibo.base.BaseActivity;
  */
 public class UserHomeActivity extends BaseActivity {
 
+    public static final String USER_UID = "USER_UID";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_home_act);
 
-        String userName = getIntent().getStringExtra("user_name");
+        getIntent().getLongExtra(USER_UID, 0);
 
-        Toast.makeText(UserHomeActivity.this, "用户主页页面--" + userName, Toast.LENGTH_SHORT).show();
     }
 }

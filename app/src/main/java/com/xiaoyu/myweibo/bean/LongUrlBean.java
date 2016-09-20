@@ -6,7 +6,7 @@ import java.util.List;
  *
  * Created by xiaoyu on 16-9-11.
  */
-public class LongUrl {
+public class LongUrlBean {
     /**
      * result : true
      * url_short : http://t.cn/RcVj5KF

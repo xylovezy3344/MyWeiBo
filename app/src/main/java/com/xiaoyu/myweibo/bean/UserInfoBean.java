@@ -6,7 +6,7 @@ import java.util.List;
  * 用户信息
  * Created by xiaoy on 16/9/14.
  */
-public class UserInfo {
+public class UserInfoBean {
 
     /**
      * id : 1404376560

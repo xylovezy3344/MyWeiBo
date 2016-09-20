@@ -2,7 +2,7 @@ package com.xiaoyu.myweibo.presenter;
 
 import com.xiaoyu.myweibo.base.BaseApplication;
 import com.xiaoyu.myweibo.bean.UserInfoBean;
-import com.xiaoyu.myweibo.contract.MyselfContract;
+import com.xiaoyu.myweibo.contract.HomeContract;
 import com.xiaoyu.myweibo.network.UserInfo;
 
 import rx.Observer;
@@ -11,18 +11,16 @@ import rx.Observer;
  * 我的页面
  * Created by xiaoyu on 16-9-11.
  */
-public class MyselfPresenter implements MyselfContract.Presenter {
+public class HomePresenter implements HomeContract.Presenter {
 
-    private MyselfContract.View mMyselfView;
+    private HomeContract.View mHomeView;
 
-    public MyselfPresenter(MyselfContract.View myselfView) {
-        this.mMyselfView = myselfView;
+    public HomePresenter(HomeContract.View mHomeView) {
+        this.mHomeView = mHomeView;
     }
 
     @Override
     public void getUserInfo() {
-
-        mMyselfView.showProgressDialog();
 
         long uid = Long.parseLong(BaseApplication.accessToken().getUid());
 
@@ -34,13 +32,12 @@ public class MyselfPresenter implements MyselfContract.Presenter {
 
             @Override
             public void onError(Throwable e) {
-                mMyselfView.hideProgressDialog();
+                mHomeView.hideProgressDialog();
             }
 
             @Override
             public void onNext(UserInfoBean userInfoBean) {
-                mMyselfView.showUserInfo(userInfoBean);
-                mMyselfView.hideProgressDialog();
+                mHomeView.showUserInfo(userInfoBean);
             }
         });
     }

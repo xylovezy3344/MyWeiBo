@@ -5,9 +5,7 @@ import com.xiaoyu.myweibo.activity.MyRelationActivity;
 import com.xiaoyu.myweibo.bean.RelationInfoList;
 import com.xiaoyu.myweibo.contract.MyRelationContract;
 import com.xiaoyu.myweibo.fragment.MyselfFragment;
-import com.xiaoyu.myweibo.fragment.WeiboFragment;
-import com.xiaoyu.myweibo.network.GetUserRelation;
-import com.xiaoyu.myweibo.network.GetWeiboModel;
+import com.xiaoyu.myweibo.network.UserRelation;
 
 import java.util.List;
 
@@ -41,7 +39,7 @@ public class MyRelationPresenter implements MyRelationContract.Presenter {
 
             @Override
             public void onError(Throwable e) {
-                Logger.e(e + "");
+                mMyRelationView.hideProgressDialog();
             }
 
             @Override
@@ -64,9 +62,9 @@ public class MyRelationPresenter implements MyRelationContract.Presenter {
             mCursor = 0;
 
             if (tag.equals(MyselfFragment.MY_FRIENDS)) {
-                GetUserRelation.getFriendList(mCursor, observer);
+                UserRelation.getFriendList(mCursor, observer);
             } else {
-                GetUserRelation.getFollowerList(mCursor, observer);
+                UserRelation.getFollowerList(mCursor, observer);
             }
         }
         else if (type == MyRelationActivity.UP_REFRESH) {
@@ -74,9 +72,9 @@ public class MyRelationPresenter implements MyRelationContract.Presenter {
             mCursor = mOldList.size();
 
             if (tag.equals(MyselfFragment.MY_FRIENDS)) {
-                GetUserRelation.getFriendList(mCursor, observer);
+                UserRelation.getFriendList(mCursor, observer);
             } else {
-                GetUserRelation.getFollowerList(mCursor, observer);
+                UserRelation.getFollowerList(mCursor, observer);
             }
         }
     }

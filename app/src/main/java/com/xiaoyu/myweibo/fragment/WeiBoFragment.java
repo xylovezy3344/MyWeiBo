@@ -45,6 +45,7 @@ public class WeiboFragment extends Fragment implements WeiboContract.View {
 
     private int mScreenWidth;
     private LinearLayoutManager mLayoutManager;
+    private boolean isLoadMore;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -88,8 +89,9 @@ public class WeiboFragment extends Fragment implements WeiboContract.View {
                 // dy>0 表示向下滑动
                 if (lastVisibleItem == totalItemCount - 1 && dy > 0) {
                     if (!mRefreshLayout.isRefreshing()) {
+                        //mRefreshLayout.setRefreshing(true);
+                        isLoadMore = true;
                         mWeiboPresenter.getWeiBo(UP_REFRESH, mWeiBoDetailList);
-                        mRefreshLayout.setRefreshing(true);
                     }
                 }
             }
@@ -113,8 +115,11 @@ public class WeiboFragment extends Fragment implements WeiboContract.View {
     public void refreshWeiBo(List<WeiboDetailList.StatusesBean> list) {
         mWeiBoDetailList = list;
         mAdapter.notifyDataSetChanged();
-        mLayoutManager.scrollToPosition(0);
-        mRefreshLayout.setRefreshing(false);
+        if (!isLoadMore) {
+            mLayoutManager.scrollToPosition(0);
+        }
+        isLoadMore = false;
+        //mRefreshLayout.setRefreshing(false);
     }
 
     /**

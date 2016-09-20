@@ -10,7 +10,7 @@ import rx.Observable;
  * 获取用户关系
  * Created by xiaoyu on 16-9-11.
  */
-public interface GetUserRelationService {
+public interface UserRelationService {
 
     //获取关注列表
     @GET("friends.json")

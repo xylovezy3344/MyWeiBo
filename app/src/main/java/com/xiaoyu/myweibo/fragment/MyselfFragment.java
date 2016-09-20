@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.xiaoyu.myweibo.R;
@@ -16,7 +15,7 @@ import com.xiaoyu.myweibo.activity.MyRelationActivity;
 import com.xiaoyu.myweibo.activity.MyPhotoActivity;
 import com.xiaoyu.myweibo.activity.MyUserInfoActivity;
 import com.xiaoyu.myweibo.activity.MyWeiboActivity;
-import com.xiaoyu.myweibo.bean.UserInfo;
+import com.xiaoyu.myweibo.bean.UserInfoBean;
 import com.xiaoyu.myweibo.contract.MyselfContract;
 import com.xiaoyu.myweibo.presenter.MyselfPresenter;
 import com.xiaoyu.myweibo.utils.LoadImageUtils;
@@ -46,8 +45,6 @@ public class MyselfFragment extends Fragment implements MyselfContract.View {
     @BindView(R.id.tv_followers_count)
     TextView mTvFollowersCount;
 
-    private MyselfPresenter mMyselfPresenter;
-
     private MyselfFragment() {
         super();
     }
@@ -67,31 +64,32 @@ public class MyselfFragment extends Fragment implements MyselfContract.View {
         View view = inflater.inflate(R.layout.home_myself_frag, container, false);
         ButterKnife.bind(this, view);
 
-        mMyselfPresenter = new MyselfPresenter(this);
+        MyselfPresenter myselfPresenter = new MyselfPresenter(this);
 
-        mMyselfPresenter.getUserInfo();
+        myselfPresenter.getUserInfo();
 
         return view;
     }
 
     @Override
-    public void showUserInfo(UserInfo userInfo) {
+    public void showUserInfo(UserInfoBean userInfoBean) {
         //头像
-        LoadImageUtils.getInstance().loadImageAsBitmap(userInfo.getProfile_image_url(), mIvIcon);
+        LoadImageUtils.getInstance().loadImageAsBitmap(userInfoBean.getAvatar_large(),
+                mIvIcon);
         //昵称
-        mTvMyName.setText(userInfo.getScreen_name());
+        mTvMyName.setText(userInfoBean.getScreen_name());
         //简介
-        if (TextUtils.isEmpty(userInfo.getDescription())) {
+        if (TextUtils.isEmpty(userInfoBean.getDescription())) {
             mTvMyDescribe.setText("简介：暂无简介");
         } else {
-            mTvMyDescribe.setText("简介：" + userInfo.getDescription());
+            mTvMyDescribe.setText("简介：" + userInfoBean.getDescription());
         }
         //微博数
-        mTvWeiboCount.setText(String.valueOf(userInfo.getStatuses_count()));
+        mTvWeiboCount.setText(String.valueOf(userInfoBean.getStatuses_count()));
         // 关注数
-        mTvFriendsCount.setText(String.valueOf(userInfo.getFriends_count()));
+        mTvFriendsCount.setText(String.valueOf(userInfoBean.getFriends_count()));
         // 粉丝数
-        mTvFollowersCount.setText(String.valueOf(userInfo.getFollowers_count()));
+        mTvFollowersCount.setText(String.valueOf(userInfoBean.getFollowers_count()));
     }
 
     @Override

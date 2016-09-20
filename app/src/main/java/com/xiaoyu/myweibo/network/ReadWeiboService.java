@@ -6,7 +6,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 import rx.Observable;
 
-public interface GetWeiboService {
+public interface ReadWeiboService {
     @GET("friends_timeline.json")
     Observable<WeiboDetailList> getWeiBoDetail(@Query("count") int count,
                                                @Query("access_token") String accessToken,

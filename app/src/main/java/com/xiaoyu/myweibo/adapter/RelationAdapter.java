@@ -1,15 +1,20 @@
 package com.xiaoyu.myweibo.adapter;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.xiaoyu.myweibo.R;
+import com.xiaoyu.myweibo.activity.UserHomeActivity;
 import com.xiaoyu.myweibo.base.BaseApplication;
 import com.xiaoyu.myweibo.bean.RelationInfoList;
+import com.xiaoyu.myweibo.utils.AppManager;
 import com.xiaoyu.myweibo.utils.LoadImageUtils;
 
 import java.util.List;
@@ -24,7 +29,8 @@ import cn.bingoogolapple.photopicker.widget.BGAImageView;
  */
 public class RelationAdapter extends RecyclerView.Adapter<RelationAdapter.FriendsListViewHolder> {
 
-    List<RelationInfoList.UsersBean> mUsers;
+    private List<RelationInfoList.UsersBean> mUsers;
+    private boolean isFollowing;
 
     public RelationAdapter(List<RelationInfoList.UsersBean> list) {
         mUsers = list;
@@ -40,18 +46,43 @@ public class RelationAdapter extends RecyclerView.Adapter<RelationAdapter.Friend
     }
 
     @Override
-    public void onBindViewHolder(FriendsListViewHolder holder, int position) {
+    public void onBindViewHolder(final FriendsListViewHolder holder, int position) {
 
-        RelationInfoList.UsersBean usersBean = mUsers.get(position);
+        final RelationInfoList.UsersBean usersBean = mUsers.get(position);
 
         LoadImageUtils.getInstance().loadImageAsBitmap(usersBean.getAvatar_large(), holder.mIvIcon);
         holder.mTvName.setText(usersBean.getScreen_name());
         holder.mTvDescribe.setText(usersBean.getDescription());
-        if (usersBean.isFollowing()) {
+
+        isFollowing = usersBean.isFollowing();
+
+        if (isFollowing) {
             holder.mIvFollow.setImageResource(R.drawable.card_icon_addtogroup_added);
         } else {
             holder.mIvFollow.setImageResource(R.drawable.card_icon_addtogroup);
         }
+
+        holder.mIvFollow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isFollowing) {
+                    holder.mIvFollow.setImageResource(R.drawable.card_icon_addtogroup);
+                    isFollowing = false;
+                    usersBean.setFollowing(false);
+                } else {
+                    holder.mIvFollow.setImageResource(R.drawable.card_icon_addtogroup_added);
+                    isFollowing = true;
+                    usersBean.setFollowing(true);
+                }
+            }
+        });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                jumpToUserHome(usersBean.getId());
+            }
+        });
     }
 
     @Override
@@ -74,6 +105,13 @@ public class RelationAdapter extends RecyclerView.Adapter<RelationAdapter.Friend
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    private void jumpToUserHome(long uid) {
+        Activity currentAct = AppManager.getAppManager().currentActivity();
+        Intent intent = new Intent(currentAct, UserHomeActivity.class);
+        intent.putExtra(UserHomeActivity.USER_UID, uid);
+        currentAct.startActivity(intent);
     }
 
 }

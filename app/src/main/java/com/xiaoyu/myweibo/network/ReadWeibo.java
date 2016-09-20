@@ -5,9 +5,6 @@ import com.xiaoyu.myweibo.base.BaseApplication;
 import com.xiaoyu.myweibo.bean.WeiboDetailList;
 import com.xiaoyu.myweibo.utils.NetWorkUtils;
 
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -16,7 +13,7 @@ import rx.schedulers.Schedulers;
  * 调用openApi网络获取微博
  * Created by xiaoyu on 16-8-29.
  */
-public class GetWeiboModel {
+public class ReadWeibo {
 
     //每次获取微博数量
     private static final int GET_WEIBO_NUM = 20;
@@ -25,12 +22,12 @@ public class GetWeiboModel {
 
         String baseUrl = "https://api.weibo.com/2/statuses/";
 
-        GetWeiboService getWeiboService = NetWorkUtils.getRetrofit(baseUrl)
-                .create(GetWeiboService.class);
+        ReadWeiboService readWeiboService = NetWorkUtils.getRetrofit(baseUrl)
+                .create(ReadWeiboService.class);
 
         Logger.d(BaseApplication.accessToken().getToken());
 
-        getWeiboService.getWeiBoDetail(GET_WEIBO_NUM, BaseApplication.accessToken().getToken(), sinceId, maxId)
+        readWeiboService.getWeiBoDetail(GET_WEIBO_NUM, BaseApplication.accessToken().getToken(), sinceId, maxId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

@@ -5,10 +5,10 @@ import com.xiaoyu.myweibo.base.BaseView;
 import com.xiaoyu.myweibo.bean.UserInfoBean;
 
 /**
- * 我的主页
+ * 微博主页面
  * Created by xiaoyu on 16-9-11.
  */
-public interface MyselfContract {
+public interface HomeContract {
 
     interface View extends BaseView {
         void showUserInfo(UserInfoBean userInfoBean);

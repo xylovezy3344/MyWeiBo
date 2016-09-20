@@ -12,7 +12,7 @@ import rx.schedulers.Schedulers;
  * 获取用户关系
  * Created by xiaoyu on 16-9-11.
  */
-public class GetUserRelation {
+public class UserRelation {
 
     //每次向服务器获取数据条数
     private static final int ONCE_COUNT = 60;
@@ -26,10 +26,10 @@ public class GetUserRelation {
 
         String baseUrl = "https://api.weibo.com/2/friendships/";
 
-        GetUserRelationService getUserRelationService = NetWorkUtils.getRetrofit(baseUrl)
-                .create(GetUserRelationService.class);
+        UserRelationService userRelationService = NetWorkUtils.getRetrofit(baseUrl)
+                .create(UserRelationService.class);
 
-        getUserRelationService.getFriendList(BaseApplication.accessToken().getToken(),
+        userRelationService.getFriendList(BaseApplication.accessToken().getToken(),
                 Long.parseLong(BaseApplication.accessToken().getUid()), ONCE_COUNT,
                 cursor)
                 .subscribeOn(Schedulers.io())
@@ -46,10 +46,10 @@ public class GetUserRelation {
 
         String baseUrl = "https://api.weibo.com/2/friendships/";
 
-        GetUserRelationService getUserRelationService = NetWorkUtils.getRetrofit(baseUrl)
-                .create(GetUserRelationService.class);
+        UserRelationService userRelationService = NetWorkUtils.getRetrofit(baseUrl)
+                .create(UserRelationService.class);
 
-        getUserRelationService.getFollowerList(BaseApplication.accessToken().getToken(),
+        userRelationService.getFollowerList(BaseApplication.accessToken().getToken(),
                 Long.parseLong(BaseApplication.accessToken().getUid()), ONCE_COUNT,
                 cursor)
                 .subscribeOn(Schedulers.io())

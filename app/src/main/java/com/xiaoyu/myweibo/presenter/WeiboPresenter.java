@@ -4,7 +4,7 @@ import com.orhanobut.logger.Logger;
 import com.xiaoyu.myweibo.bean.WeiboDetailList;
 import com.xiaoyu.myweibo.contract.WeiboContract;
 import com.xiaoyu.myweibo.fragment.WeiboFragment;
-import com.xiaoyu.myweibo.network.GetWeiboModel;
+import com.xiaoyu.myweibo.network.ReadWeibo;
 
 import java.util.List;
 
@@ -35,11 +35,11 @@ public class WeiboPresenter implements WeiboContract.Presenter {
         Observer<WeiboDetailList> observer = new Observer<WeiboDetailList>() {
             @Override
             public void onCompleted() {
-                Logger.d("onCompleted");
             }
 
             @Override
             public void onError(Throwable e) {
+                mHomeView.hideProgressDialog();
                 Logger.e(e + "");
             }
 
@@ -69,14 +69,14 @@ public class WeiboPresenter implements WeiboContract.Presenter {
 
         if (type == WeiboFragment.FIRST_GET) {
             mHomeView.showProgressDialog();
-            GetWeiboModel.getLatestWeiBo(observer);
+            ReadWeibo.getLatestWeiBo(observer);
         }
         else if (type == WeiboFragment.DOWN_REFRESH) {
-            GetWeiboModel.getNewWeiBo(mSinceId, observer);
+            ReadWeibo.getNewWeiBo(mSinceId, observer);
         }
         else if (type == WeiboFragment.UP_REFRESH) {
 
-            GetWeiboModel.getOldWeiBo(mMaxId, observer);
+            ReadWeibo.getOldWeiBo(mMaxId, observer);
         }
     }
 
