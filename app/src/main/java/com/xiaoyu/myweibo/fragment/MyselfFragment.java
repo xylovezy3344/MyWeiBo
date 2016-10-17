@@ -12,8 +12,6 @@ import android.widget.TextView;
 
 import com.xiaoyu.myweibo.R;
 import com.xiaoyu.myweibo.activity.MyRelationActivity;
-import com.xiaoyu.myweibo.activity.MyPhotoActivity;
-import com.xiaoyu.myweibo.activity.MyUserInfoActivity;
 import com.xiaoyu.myweibo.activity.MyWeiboActivity;
 import com.xiaoyu.myweibo.bean.UserInfoBean;
 import com.xiaoyu.myweibo.contract.MyselfContract;
@@ -104,36 +102,20 @@ public class MyselfFragment extends Fragment implements MyselfContract.View {
 
     //我的微博、我的赞、我的收藏，跳转到同一页面（微博列表）
     public static final String MY_WEIBO = "MY_WEIBO";
-    public static final String MY_LIKE = "MY_LIKE";
-    public static final String MY_COLLECTION = "MY_COLLECTION";
     //我的关注、我的粉丝，跳转到同一页面（用户列表）
     public static final String MY_FRIENDS = "MY_FRIENDS";
     public static final String MY_FOLLOWERS = "MY_FOLLOWERS";
 
-    @OnClick({R.id.rl_user_info, R.id.ll_weibo_count, R.id.ll_friends_count, R.id.ll_followers_count, R.id.ll_my_photo, R.id.ll_my_like, R.id.ll_my_collection})
+    @OnClick({R.id.ll_weibo_count, R.id.ll_friends_count, R.id.ll_followers_count})
     public void onClick(View view) {
 
         Intent intent;
 
         switch (view.getId()) {
-            //用户信息
-            case R.id.rl_user_info:
-                intent = new Intent(getContext(), MyUserInfoActivity.class);
-                break;
             //微博数量
             case R.id.ll_weibo_count:
                 intent = new Intent(getContext(), MyWeiboActivity.class);
                 intent.putExtra("tag", MY_WEIBO);
-                break;
-            // 我的赞
-            case R.id.ll_my_like:
-                intent = new Intent(getContext(), MyWeiboActivity.class);
-                intent.putExtra("tag", MY_LIKE);
-                break;
-            // 我的收藏
-            case R.id.ll_my_collection:
-                intent = new Intent(getContext(), MyWeiboActivity.class);
-                intent.putExtra("tag", MY_COLLECTION);
                 break;
             //关注数量
             case R.id.ll_friends_count:
@@ -141,13 +123,9 @@ public class MyselfFragment extends Fragment implements MyselfContract.View {
                 intent.putExtra("tag", MY_FRIENDS);
                 break;
             // 粉丝数量
-            case R.id.ll_followers_count:
+            default:
                 intent = new Intent(getContext(), MyRelationActivity.class);
                 intent.putExtra("tag", MY_FOLLOWERS);
-                break;
-            //我的相册
-            default:
-                intent = new Intent(getContext(), MyPhotoActivity.class);
                 break;
         }
 

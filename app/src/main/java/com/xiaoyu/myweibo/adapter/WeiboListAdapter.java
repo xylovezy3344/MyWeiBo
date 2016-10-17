@@ -1,14 +1,20 @@
 package com.xiaoyu.myweibo.adapter;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.xiaoyu.myweibo.R;
+import com.xiaoyu.myweibo.activity.SingleWeiboActivity;
+import com.xiaoyu.myweibo.activity.UserHomeActivity;
 import com.xiaoyu.myweibo.base.BaseApplication;
 import com.xiaoyu.myweibo.bean.WeiboDetailList;
 import com.xiaoyu.myweibo.utils.AppManager;
@@ -24,11 +30,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.bingoogolapple.photopicker.widget.BGANinePhotoLayout;
 
+import static com.sina.weibo.sdk.openapi.legacy.CommonAPI.CAPITAL.i;
+import static com.sina.weibo.sdk.openapi.legacy.CommonAPI.CAPITAL.p;
+
 /**
  * 主页面微博列表适配器
  * Created by xiaoyu on 16-8-30.
  */
-public class WeiboListAdapter extends RecyclerView.Adapter<WeiboListAdapter.WeiboListViewHolder> implements BGANinePhotoLayout.Delegate {
+public class WeiboListAdapter extends RecyclerView.Adapter<WeiboListAdapter.WeiboListViewHolder>
+        implements BGANinePhotoLayout.Delegate {
 
     private static final String TAG = "WeiboListAdapter：";
 
@@ -48,6 +58,8 @@ public class WeiboListAdapter extends RecyclerView.Adapter<WeiboListAdapter.Weib
 
     @Override
     public void onBindViewHolder(WeiboListViewHolder holder, int position) {
+        WeiboDetailList.StatusesBean statusesBean = mWeiBoDetailList.get(position);
+        WeiboDetailList.StatusesBean.RetweetedStatusBean retweeted_status = mWeiBoDetailList.get(position).getRetweeted_status();
         /**
          * 转发微博者
          */
@@ -133,6 +145,60 @@ public class WeiboListAdapter extends RecyclerView.Adapter<WeiboListAdapter.Weib
             holder.tvAttitudes.setText(attitudesCount + "");
         }
 
+        /**
+         * 点击事件
+         */
+        setOnClickListener(holder, position);
+    }
+
+    private void setOnClickListener(WeiboListViewHolder holder, final int position) {
+
+        View.OnClickListener userInfoClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AppManager.getAppManager().currentActivity(),
+                        UserHomeActivity.class);
+                intent.putExtra(UserHomeActivity.USER_UID,
+                        mWeiBoDetailList.get(position).getUser().getId());
+                AppManager.getAppManager().currentActivity().startActivity(intent);
+            }
+        };
+        View.OnClickListener friendWeiboClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AppManager.getAppManager().currentActivity(),
+                        SingleWeiboActivity.class);
+                Gson gson = new Gson();
+                String weiboDetail = gson.toJson(mWeiBoDetailList.get(position));
+                intent.putExtra(SingleWeiboActivity.SINGLE_WEIBO, weiboDetail);
+                intent.putExtra(SingleWeiboActivity.WEIBO_STYLE, "friend");
+                AppManager.getAppManager().currentActivity().startActivity(intent);
+            }
+        };
+        View.OnClickListener sourceWeiboClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AppManager.getAppManager().currentActivity(),
+                        SingleWeiboActivity.class);
+                Gson gson = new Gson();
+                String weiboDetail = gson.toJson(mWeiBoDetailList.get(position).getRetweeted_status());
+                intent.putExtra(SingleWeiboActivity.SINGLE_WEIBO, weiboDetail);
+                intent.putExtra(SingleWeiboActivity.WEIBO_STYLE, "source");
+                AppManager.getAppManager().currentActivity().startActivity(intent);
+            }
+        };
+        //用户名称，跳转到用户主页
+        holder.rlUserInfo.setOnClickListener(userInfoClickListener);
+        //微博文字，跳转到单条微博内容
+        holder.llWeibo.setOnClickListener(friendWeiboClickListener);
+        holder.tvFriendWeiBoText.setOnClickListener(friendWeiboClickListener);
+        //原微博，跳转到单条微博内容
+        holder.llSourceWeiBo.setOnClickListener(sourceWeiboClickListener);
+        holder.tvSourceWeiBoText.setOnClickListener(sourceWeiboClickListener);
+        //转发、评论、点赞
+        holder.llReposts.setOnClickListener(friendWeiboClickListener);
+        holder.llComments.setOnClickListener(friendWeiboClickListener);
+        holder.llAttitudes.setOnClickListener(friendWeiboClickListener);
     }
 
     @Override
@@ -156,11 +222,17 @@ public class WeiboListAdapter extends RecyclerView.Adapter<WeiboListAdapter.Weib
     }
 
     @Override
-    public boolean onLongClickNinePhotoItem(BGANinePhotoLayout ninePhotoLayout, View view, int position, String model, List<String> models) {
+    public boolean onLongClickNinePhotoItem(BGANinePhotoLayout ninePhotoLayout, View view,
+                                            int position, String model, List<String> models) {
         return false;
     }
 
     class WeiboListViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.ll_weibo)
+        LinearLayout llWeibo;
+        @BindView(R.id.rl_user_info)
+        RelativeLayout rlUserInfo;
 
         @BindView(R.id.iv_user_icon)
         ImageView ivUserIcon;
@@ -198,7 +270,7 @@ public class WeiboListAdapter extends RecyclerView.Adapter<WeiboListAdapter.Weib
         @BindView(R.id.tv_attitudes)
         TextView tvAttitudes;
 
-        public WeiboListViewHolder(View view) {
+        WeiboListViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, itemView);
         }

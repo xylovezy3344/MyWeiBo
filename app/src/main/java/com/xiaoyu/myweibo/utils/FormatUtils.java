@@ -75,4 +75,38 @@ public class FormatUtils {
             return "刚刚";
         }
     }
+
+    public static String createdAt(String createdAt) {
+
+        String[] strings = createdAt.split(" ");
+
+        //微博生成时间
+        int createdAtYear = Integer.valueOf(strings[5]);
+        int createdAtDay = Integer.valueOf(strings[2]);
+
+        HashMap<String, Integer> map = new HashMap<>();
+        map.put("Jan", 1);
+        map.put("Feb", 2);
+        map.put("Mar", 3);
+        map.put("Apr", 4);
+        map.put("May", 5);
+        map.put("Jun", 6);
+        map.put("Jul", 7);
+        map.put("Aug", 8);
+        map.put("Sep", 9);
+        map.put("Oct", 10);
+        map.put("Nov", 11);
+        map.put("Dec", 12);
+
+        int createdAtMonth = map.get(strings[1]);
+
+        String createdAtTime = strings[3];
+        String[] times = createdAtTime.split(":");
+        int createdAtHour = Integer.valueOf(times[0]);
+        int createdAtMinute = Integer.valueOf(times[1]);
+        int createdAtSecond = Integer.valueOf(times[2]);
+
+        return createdAtMonth + "-" + createdAtDay + " " + createdAtHour + ":" + createdAtMinute;
+
+    }
 }

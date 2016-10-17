@@ -1,6 +1,5 @@
 package com.xiaoyu.myweibo.network;
 
-import com.orhanobut.logger.Logger;
 import com.xiaoyu.myweibo.base.BaseApplication;
 import com.xiaoyu.myweibo.bean.WeiboDetailList;
 import com.xiaoyu.myweibo.utils.NetWorkUtils;
@@ -24,8 +23,6 @@ public class ReadWeibo {
 
         ReadWeiboService readWeiboService = NetWorkUtils.getRetrofit(baseUrl)
                 .create(ReadWeiboService.class);
-
-        Logger.d(BaseApplication.accessToken().getToken());
 
         readWeiboService.getWeiBoDetail(GET_WEIBO_NUM, BaseApplication.accessToken().getToken(), sinceId, maxId)
                 .subscribeOn(Schedulers.io())

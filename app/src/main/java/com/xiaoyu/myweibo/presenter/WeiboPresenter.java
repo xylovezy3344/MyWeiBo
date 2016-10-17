@@ -1,11 +1,15 @@
 package com.xiaoyu.myweibo.presenter;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.orhanobut.logger.Logger;
 import com.xiaoyu.myweibo.bean.WeiboDetailList;
 import com.xiaoyu.myweibo.contract.WeiboContract;
 import com.xiaoyu.myweibo.fragment.WeiboFragment;
 import com.xiaoyu.myweibo.network.ReadWeibo;
+import com.xiaoyu.myweibo.utils.CacheUtils;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 import rx.Observer;
@@ -39,23 +43,37 @@ public class WeiboPresenter implements WeiboContract.Presenter {
 
             @Override
             public void onError(Throwable e) {
+                Gson gson = new Gson();
+                Type listType = new TypeToken<List<WeiboDetailList.StatusesBean>>() {
+                }.getType();
+                List<WeiboDetailList.StatusesBean> weiboList =
+                        gson.fromJson(CacheUtils.get("weibo_list"), listType);
+
+                mHomeView.showWeiBo(weiboList);
+
                 mHomeView.hideProgressDialog();
-                Logger.e(e + "");
             }
 
             @Override
             public void onNext(WeiboDetailList weiBoDetailList) {
+
+                Gson gson = new Gson();
 
                 if (type == WeiboFragment.FIRST_GET) {
                     mSinceId = weiBoDetailList.getSince_id();
                     mMaxId = weiBoDetailList.getMax_id();
                     mHomeView.showWeiBo(weiBoDetailList.getStatuses());
 
+                    CacheUtils.put(gson.toJson(weiBoDetailList.getStatuses()), "weibo_list");
+
                     mHomeView.hideProgressDialog();
                 }
                 else if (type == WeiboFragment.DOWN_REFRESH) {
                     mSinceId = weiBoDetailList.getSince_id();
                     downUpdateData(weiBoDetailList.getStatuses());
+
+                    CacheUtils.put(gson.toJson(mOldWeiboList), "weibo_list");
+
                     mHomeView.refreshWeiBo(mOldWeiboList);
                 }
                 else if (type == WeiboFragment.UP_REFRESH) {
@@ -75,8 +93,11 @@ public class WeiboPresenter implements WeiboContract.Presenter {
             ReadWeibo.getNewWeiBo(mSinceId, observer);
         }
         else if (type == WeiboFragment.UP_REFRESH) {
-
-            ReadWeibo.getOldWeiBo(mMaxId, observer);
+            if (mMaxId != 0) {
+                ReadWeibo.getOldWeiBo(mMaxId, observer);
+            } else {
+                mHomeView.refreshWeiBo(mOldWeiboList);
+            }
         }
     }
 

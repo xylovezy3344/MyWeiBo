@@ -67,6 +67,8 @@ public class HomeActivity extends BaseActivity implements HomeContract.View,
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
+        mCollapsingToolbar.setTitle(" ");
+
         initNavigationView();
 
         HomePresenter presenter = new HomePresenter(this);
@@ -132,22 +134,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.View,
                     mWeiboFragment, R.id.fl_weibo_list);
             //显示刷新按钮
             mToolbar.getMenu().setGroupVisible(0, true);
-        } else if (id == R.id.nav_message) {
-            //填充消息页面
-            MessageFragment messageFragment = MessageFragment.getInstance();
-            ActivityUtils.replaceFragment(getSupportFragmentManager(),
-                    messageFragment, R.id.fl_weibo_list);
-            //隐藏刷新按钮
-            mToolbar.getMenu().setGroupVisible(0, false);
-
-        } else if (id == R.id.nav_discover) {
-            //填充发现页面
-            DiscoveryFragment discoveryFragment = DiscoveryFragment.getInstance();
-            ActivityUtils.replaceFragment(getSupportFragmentManager(),
-                    discoveryFragment, R.id.fl_weibo_list);
-            //隐藏刷新按钮
-            mToolbar.getMenu().setGroupVisible(0, false);
-
         } else if (id == R.id.nav_myself) {
             //填充我的页面
             MyselfFragment myselfFragment = MyselfFragment.getInstance();

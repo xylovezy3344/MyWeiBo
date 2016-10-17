@@ -7,6 +7,7 @@
     android:background="@android:color/white">
 
     <LinearLayout
+        android:background="@drawable/simple_click_selector"
         android:id="@+id/ll_reposts"
         android:padding="8dp"
         android:gravity="center"
@@ -33,6 +34,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:background="@drawable/simple_click_selector"
         android:id="@+id/ll_comments"
         android:padding="8dp"
         android:gravity="center"
@@ -59,6 +61,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:background="@drawable/simple_click_selector"
         android:id="@+id/ll_attitudes"
         android:padding="8dp"
         android:gravity="center"

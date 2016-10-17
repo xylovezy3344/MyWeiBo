@@ -30,8 +30,7 @@ public class LoadImageUtils {
         Glide.with(BaseApplication.context())
                 .load(imageAddress)
                 .asBitmap()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(view);
     }
 
@@ -39,7 +38,7 @@ public class LoadImageUtils {
         Glide.with(BaseApplication.context())
                 .load(imageAddress)
                 .asGif()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(view);
     }
 

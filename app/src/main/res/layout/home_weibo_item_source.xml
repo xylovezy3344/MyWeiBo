@@ -17,6 +17,7 @@
 
     <!--九宫格图片-->
     <cn.bingoogolapple.photopicker.widget.BGANinePhotoLayout
+        android:layout_marginTop="8dp"
         android:id="@+id/nine_pic_source"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

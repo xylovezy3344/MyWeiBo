@@ -43,17 +43,11 @@
         </activity>
         <activity android:name=".activity.TopicActivity">
         </activity>
-        <activity android:name=".activity.MyUserInfoActivity">
-        </activity>
         <activity android:name=".activity.MyWeiboActivity">
-        </activity>
-        <activity android:name=".activity.MyPhotoActivity">
         </activity>
         <activity android:name=".activity.MyRelationActivity">
         </activity>
         <activity android:name=".activity.SingleWeiboActivity">
-        </activity>
-        <activity android:name=".activity.WebContentActivity">
         </activity>
     </application>
 

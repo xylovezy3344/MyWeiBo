@@ -18,6 +18,7 @@ import com.xiaoyu.myweibo.adapter.WeiboListAdapter;
 import com.xiaoyu.myweibo.bean.WeiboDetailList;
 import com.xiaoyu.myweibo.contract.WeiboContract;
 import com.xiaoyu.myweibo.presenter.WeiboPresenter;
+import com.xiaoyu.myweibo.utils.ProgressDialogUtils;
 
 import java.util.List;
 
@@ -44,6 +45,7 @@ public class WeiboFragment extends Fragment implements WeiboContract.View {
 
     private int mScreenWidth;
     private LinearLayoutManager mLayoutManager;
+    private boolean isLoadMore;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -87,15 +89,15 @@ public class WeiboFragment extends Fragment implements WeiboContract.View {
                 // dy>0 表示向下滑动
                 if (lastVisibleItem == totalItemCount - 1 && dy > 0) {
                     if (!mRefreshLayout.isRefreshing()) {
-                        mWeiboPresenter.getWeiBo(UP_REFRESH, mWeiBoDetailList);
                         mRefreshLayout.setRefreshing(true);
+                        isLoadMore = true;
+                        mWeiboPresenter.getWeiBo(UP_REFRESH, mWeiBoDetailList);
                     }
                 }
             }
         });
 
         //首次请求微博数据
-        mRefreshLayout.setRefreshing(true);
         mWeiboPresenter.getWeiBo(FIRST_GET, null);
 
         return view;
@@ -107,14 +109,15 @@ public class WeiboFragment extends Fragment implements WeiboContract.View {
         //设置adapter
         mAdapter = new WeiboListAdapter(mWeiBoDetailList);
         mRvWeiboDetail.setAdapter(mAdapter);
-        mRefreshLayout.setRefreshing(false);
     }
 
     @Override
     public void refreshWeiBo(List<WeiboDetailList.StatusesBean> list) {
         mWeiBoDetailList = list;
         mAdapter.notifyDataSetChanged();
-        mLayoutManager.scrollToPosition(0);
+        if (!isLoadMore) {
+            mLayoutManager.scrollToPosition(0);
+        }
         mRefreshLayout.setRefreshing(false);
     }
 
@@ -122,7 +125,18 @@ public class WeiboFragment extends Fragment implements WeiboContract.View {
      * 供HomeActivity调用，菜单刷新按钮实现
      */
     public void refreshForActivity() {
+        isLoadMore = false;
         mRefreshLayout.setRefreshing(true);
         mWeiboPresenter.getWeiBo(DOWN_REFRESH, mWeiBoDetailList);
+    }
+
+    @Override
+    public void showProgressDialog() {
+        ProgressDialogUtils.ShowProgressDialog();
+    }
+
+    @Override
+    public void hideProgressDialog() {
+        ProgressDialogUtils.hideProgressDialog();
     }
 }
